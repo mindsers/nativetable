@@ -1,0 +1,24 @@
+stages:
+  - build
+  - mirror
+
+build_prod:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  only: master
+  artifacts:
+    paths:
+    - src/script/build/nativetable.min.js
+  tags:
+    - shell
+
+update_github:
+  stage: mirror
+  script:
+    - git remote add github git@github.com:Mindsers/nativetable.git
+    - git push github master
+  only: master
+  tags:
+    - shell
