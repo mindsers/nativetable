@@ -1,0 +1,32 @@
+{
+  "name": "nativetable",
+  "version": "1.0.0",
+  "description": "Create and use dynamics HTML tables with native JS",
+  "main": "src/scripts/build/nativetable.min.js",
+  "scripts": {
+    "build:js": "rollup -c",
+    "build:clean": "rm -rf src/scripts/build",
+    "build:dev": "npm run build:clean && npm run build:js -- --sourcemap -w",
+    "build:prod": "npm run build:clean && npm run build:js",
+    "build": "npm run build:prod"
+  },
+  "keywords": [
+    "table",
+    "filter"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-preset-es2015-rollup": "^1.2.0",
+    "eslint": "^3.7.1",
+    "eslint-config-standard": "^6.2.0",
+    "eslint-plugin-promise": "^3.0.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "rollup": "^0.36.3",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-uglify": "^1.0.1",
+    "rollup-watch": "^2.5.0"
+  },
+  "dependencies": {}
+}
