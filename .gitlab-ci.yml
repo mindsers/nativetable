@@ -7,7 +7,8 @@ build_prod:
   script:
     - npm install
     - npm run build
-  only: master
+  only:
+    - master
   artifacts:
     paths:
     - src/script/build/nativetable.min.js
@@ -19,6 +20,7 @@ update_github:
   script:
     - git remote add github git@github.com:Mindsers/nativetable.git
     - git push github master
-  only: master
+  only:
+    - master
   tags:
     - shell
