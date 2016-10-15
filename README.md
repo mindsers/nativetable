@@ -6,6 +6,50 @@
 
 Nativetable is a simple native es6 module to create and work with dynamics HTML tables.
 
+## Installation
+
+You can build your own Nativetable with this project.
+
+Clone the project :
+```bash
+git clone https://git.nathanaelcherrier.com/mindsers/nativetable.git
+cd nativetable
+```
+
+Install packages and build sources :
+```bash
+npm install
+npm run build
+```
+
+Nativetable library is ready to be import on your project : `src/scripts/build/nativetable.min.js`
+
+## Usage
+
+Add a script tag on your page to call Nativatable.
+```html
+<script src="nativetable.min.js"></script>
+```
+
+### Sample code
+
+```js
+// Show all data in table.
+let ntable = new Nativetable('tableid', { datasource });
+```
+
+```js
+// Show table with three columns : id, name and age.
+let ntable = new Nativetable('tableid', {
+    datasource: data,
+    columns: [
+        "id",
+        "name",
+        "age"
+    ]
+});
+```
+
 ## Contribution
 
 To contribute or report issue, please go to [git.nathanaelcherrier.com][project]
