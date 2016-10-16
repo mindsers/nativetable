@@ -2,6 +2,7 @@
   "name": "nativetable",
   "version": "1.0.0",
   "description": "Create and use dynamics HTML tables with native JS",
+  "repository": "https://git.nathanaelcherrier.com/mindsers/nativetable.git",
   "main": "src/scripts/build/nativetable.min.js",
   "scripts": {
     "build:js": "rollup -c",
@@ -23,6 +24,7 @@
     "eslint-config-standard": "^6.2.0",
     "eslint-plugin-promise": "^3.0.0",
     "eslint-plugin-standard": "^2.0.1",
+    "mocha": "^3.1.2",
     "rollup": "^0.36.3",
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-uglify": "^1.0.1",
