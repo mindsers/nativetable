@@ -1,11 +1,23 @@
 stages:
+  - test
   - build
   - mirror
+
+before_script:
+  - npm install
+
+unit_test:
+  stage: test
+  script:
+    - npm test
+  except:
+    - master
+  tags:
+    - shell
 
 build_prod:
   stage: build
   script:
-    - npm install
     - npm run build
   only:
     - master
