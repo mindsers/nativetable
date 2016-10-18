@@ -10,7 +10,7 @@
     "build:dev": "npm run build:clean && npm run build:js -- --sourcemap -w",
     "build:prod": "npm run build:clean && npm run build:js",
     "build": "npm run build:prod",
-    "test:coverage": "istanbul cover _mocha -- --require babel-core/register",
+    "test:coverage": "isparta cover --include-all-sources --report html --report text _mocha -- --require babel-core/register --reporter dot",
     "test:unit": "mocha --require babel-core/register",
     "test": "npm run test:unit"
   },
@@ -28,7 +28,8 @@
     "eslint-config-standard": "^6.2.0",
     "eslint-plugin-promise": "^3.0.0",
     "eslint-plugin-standard": "^2.0.1",
-    "istanbul": "^0.4.5",
+    "isparta": "^4.0.0",
+    "istanbul": "^0.4.4",
     "mocha": "^3.1.2",
     "rollup": "^0.36.3",
     "rollup-plugin-babel": "^2.6.1",
