@@ -1,7 +1,7 @@
 verbose: false
 instrumentation:
     default-excludes: true
-    excludes: ['**/test.js', '**/*.test.js']
+    excludes: ['**/test.js', '**/*.test.js', '**/build/**']
     include-all-sources: true
 reporting:
     print: summary

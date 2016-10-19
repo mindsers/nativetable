@@ -13,7 +13,7 @@
     "test:coverage": "isparta cover _mocha -- -r babel-core/register -R progress",
     "test:unit": "mocha -r babel-core/register",
     "test:clean": "rm -rf coverage",
-    "test": "npm run build:clean && npm run test:clean && npm run test:unit && npm run test:coverage"
+    "test": "npm run test:clean && npm run test:unit && npm run test:coverage"
   },
   "keywords": [
     "table",
