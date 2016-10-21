@@ -1,18 +1,22 @@
 /* eslint-env node, mocha */
 
 import chai from 'chai'
+import spies from 'chai-spies'
 import Nativetable from '../src/scripts/nativetable/nativetable'
 
 describe('Nativetable', () => {
   let table
 
   before(() => {
+    chai.use(spies)
     chai.should()
     global.document = {
       getElementById() {
         return {}
       }
     }
+
+    global.btoa = () => '2U3I3O3I3'
 
     table = new Nativetable('id')
   })
@@ -34,6 +38,28 @@ describe('Nativetable', () => {
         brother: 3
       }
     ]
+  })
+
+  describe('#constructor', () => {
+    before(() => {
+      chai.spy.on(Nativetable.prototype, 'draw')
+    })
+
+    it('should call draw method on init', () => {
+      table = new Nativetable('id')
+      table.draw.should.have.been.called()
+    })
+
+    it('should init source with empty array when no options is passed', () => {
+      table = new Nativetable('id')
+      table.source.should.be.an.instanceof(Array)
+      table.source.should.be.empty
+    })
+
+    it('should init columns with array of keys string when no options is passed', () => {
+      table.source.should.be.an.instanceof(Array)
+      table.source.should.not.be.empty
+    })
   })
 
   describe('#source', () => {
@@ -72,6 +98,12 @@ describe('Nativetable', () => {
     it('should have the given array elements as columns name only when element is a string', () => {
       table.columns = ['lastname', ['name'], 'age', 2, 'brother']
       table.columns.should.to.eql(['lastname', 'age', 'brother'])
+    })
+  })
+
+  describe('#objectSignature', () => {
+    it('should return an encoded ocject as string', () => {
+      table.objectSignature({}).should.be.a('string')
     })
   })
 })
