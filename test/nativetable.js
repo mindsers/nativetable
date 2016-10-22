@@ -5,24 +5,26 @@ import spies from 'chai-spies'
 import Nativetable from '../src/scripts/nativetable/nativetable'
 
 describe('Nativetable', () => {
-  let table
+  let nt
+
+  chai.use(spies)
+  chai.should()
 
   before(() => {
-    chai.use(spies)
-    chai.should()
     global.document = {
       getElementById() {
-        return {}
+        return {
+          innerHTML: ''
+        }
       }
     }
-
     global.btoa = () => '2U3I3O3I3'
 
-    table = new Nativetable('id')
+    nt = new Nativetable('id')
   })
 
   beforeEach(() => {
-    table.source = [
+    nt.source = [
       {
         id: 12,
         name: 'bob',
@@ -46,64 +48,91 @@ describe('Nativetable', () => {
     })
 
     it('should call draw method on init', () => {
-      table = new Nativetable('id')
-      table.draw.should.have.been.called()
+      nt = new Nativetable('id')
+      nt.draw.should.have.been.called()
     })
 
     it('should init source with empty array when no options is passed', () => {
-      table = new Nativetable('id')
-      table.source.should.be.an.instanceof(Array)
-      table.source.should.be.empty
+      nt = new Nativetable('id')
+      nt.source.should.be.an.instanceof(Array)
+      nt.source.should.be.empty
     })
 
     it('should init columns with array of keys string when no options is passed', () => {
-      table.source.should.be.an.instanceof(Array)
-      table.source.should.not.be.empty
+      nt.source.should.be.an.instanceof(Array)
+      nt.source.should.not.be.empty
     })
   })
 
   describe('#source', () => {
     it('should not modify values', () => {
-      table.source[0].id.should.equal(12)
-      table.source[1].name.should.equal('sarah')
-      table.source[0].age.should.equal(81)
-      table.source[1].man.should.equal(false)
+      nt.source[0].id.should.equal(12)
+      nt.source[1].name.should.equal('sarah')
+      nt.source[0].age.should.equal(81)
+      nt.source[1].man.should.equal(false)
     })
   })
 
   describe('#filtered', () => {
     it('should be equal to source', () => {
-      table.filtered[0].id.should.equal(table.source[0].id)
-      table.filtered[1].name.should.equal(table.source[1].name)
-      table.filtered[0].age.should.equal(table.source[0].age)
-      table.filtered[1].man.should.equal(table.source[1].man)
+      nt.filtered[0].id.should.equal(nt.source[0].id)
+      nt.filtered[1].name.should.equal(nt.source[1].name)
+      nt.filtered[0].age.should.equal(nt.source[0].age)
+      nt.filtered[1].man.should.equal(nt.source[1].man)
     })
   })
 
   describe('#columns', () => {
     it('should have datasource keys as columns name by default', () => {
-      table.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+      nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
     })
 
     it('should have datasource keys as columns name when user would force empty array', () => {
-      table.columns = []
-      table.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+      nt.columns = []
+      nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
     })
 
     it('should have the given array elements as columns name', () => {
-      table.columns = ['lastname', 'age']
-      table.columns.should.to.eql(['lastname', 'age'])
+      nt.columns = ['lastname', 'age']
+      nt.columns.should.to.eql(['lastname', 'age'])
     })
 
     it('should have the given array elements as columns name only when element is a string', () => {
-      table.columns = ['lastname', ['name'], 'age', 2, 'brother']
-      table.columns.should.to.eql(['lastname', 'age', 'brother'])
+      nt.columns = ['lastname', ['name'], 'age', 2, 'brother']
+      nt.columns.should.to.eql(['lastname', 'age', 'brother'])
     })
   })
 
   describe('#objectSignature', () => {
     it('should return an encoded ocject as string', () => {
-      table.objectSignature({}).should.be.a('string')
+      nt.objectSignature({}).should.be.a('string')
+    })
+  })
+
+  describe('#draw', () => {
+    it('should generate string in table tag', () => {
+      nt.draw()
+      nt._tableBox.innerHTML.should.be.a('string')
+    })
+
+    it('should generate string with all columns name in tablebox', () => {
+      nt.columns = []
+      nt.draw()
+      nt._tableBox.innerHTML.should.contain('name')
+      nt._tableBox.innerHTML.should.contain('man')
+      nt._tableBox.innerHTML.should.contain('id')
+      nt._tableBox.innerHTML.should.contain('brother')
+      nt._tableBox.innerHTML.should.contain('age')
+    })
+
+    it('should generate string with only indicated columns name in tablebox', () => {
+      nt.columns = ['name', 'brother']
+      nt.draw()
+      nt._tableBox.innerHTML.should.contain('name')
+      nt._tableBox.innerHTML.should.not.contain('man')
+      nt._tableBox.innerHTML.should.not.contain('id')
+      nt._tableBox.innerHTML.should.contain('brother')
+      nt._tableBox.innerHTML.should.not.contain('age')
     })
   })
 })
