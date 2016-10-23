@@ -11,6 +11,10 @@ describe('Nativetable', () => {
   chai.should()
 
   before(() => {
+    global.btoa = () => '2U3I3O3I3'
+  })
+
+  beforeEach(() => {
     global.document = {
       getElementById() {
         return {
@@ -18,12 +22,8 @@ describe('Nativetable', () => {
         }
       }
     }
-    global.btoa = () => '2U3I3O3I3'
 
     nt = new Nativetable('id')
-  })
-
-  beforeEach(() => {
     nt.sources = [
       {
         id: 12,
@@ -61,6 +61,23 @@ describe('Nativetable', () => {
     it('should init columns with array of keys string when no options is passed', () => {
       nt.sources.should.be.an.instanceof(Array)
       nt.sources.should.not.be.empty
+    })
+
+    it('should throw a TypeError if incorrect parameter is passed', () => {
+      let test = () => {
+        const t = new Nativetable(2) /* eslint-env node, mocha */
+      }
+
+      test.should.throw(TypeError)
+    })
+
+    it('should throw a TypeError if null is returned by getElementById for the given id', () => {
+      global.document.getElementById = () => { return null }
+      let test = () => {
+        const t = new Nativetable('yolo') /* eslint-env node, mocha */
+      }
+
+      test.should.throw(TypeError)
     })
   })
 
