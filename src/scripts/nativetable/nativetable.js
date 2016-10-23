@@ -2,6 +2,7 @@ export default class Nativetable {
 
   /**
    * Data source filtered by filters
+   * Getter
    *
    * @return {Object[]}
    */
@@ -10,7 +11,7 @@ export default class Nativetable {
   }
 
   /**
-   * Colum's nouns
+   * Colum's nouns getter
    *
    * @return {string[]} - colum's nouns
    */
@@ -38,7 +39,7 @@ export default class Nativetable {
   }
 
   /**
-   * Colum's nouns
+   * Colum's nouns setter
    *
    * @param {string[]} value - colum's nouns
    */
