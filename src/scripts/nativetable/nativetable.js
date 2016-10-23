@@ -64,10 +64,16 @@ export default class Nativetable {
    * @param {Object}    options.filters     - filters to applies
    * @param {string[]}  options.columns      - column's nouns
    *
+   * @throws {TypeError} if the id parameter is invalid
+   *
    * @return {Nativetable} - an instance of Nativetable
    */
   constructor(id, { sources = [], filters = {}, columns = [] } = {}) {
     this.options = {}
+
+    if (typeof id !== 'string' || document.getElementById(id) == null) {
+      throw new TypeError('First parameter of Nativetable need to be a valid tag ID.')
+    }
 
     this.options.id = id
     this.options.box = document.getElementById(id)
