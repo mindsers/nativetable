@@ -65,7 +65,7 @@ describe('Nativetable', () => {
 
     it('should throw a TypeError if incorrect parameter is passed', () => {
       let test = () => {
-        const t = new Nativetable(2) /* eslint-env node, mocha */
+        new Nativetable(2) // eslint-disable-line no-new
       }
 
       test.should.throw(TypeError)
@@ -74,7 +74,7 @@ describe('Nativetable', () => {
     it('should throw a TypeError if null is returned by getElementById for the given id', () => {
       global.document.getElementById = () => { return null }
       let test = () => {
-        const t = new Nativetable('yolo') /* eslint-env node, mocha */
+        new Nativetable('yolo') // eslint-disable-line no-new
       }
 
       test.should.throw(TypeError)
