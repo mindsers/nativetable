@@ -1,45 +1,28 @@
 export default class Nativetable {
 
   /**
-   * Data sources of Nativetable
-   *
-   * @return {Object[]} - sources
-   */
-  get source() {
-    return this._data
-  }
-
-  /**
-   * Data sources of Nativetable.
-   *
-   * @param {Object[]} value - sources
-   */
-  set source(value) {
-    this._data = value
-  }
-
-  /**
    * Data source filtered by filters
+   * Getter
    *
    * @return {Object[]}
    */
   get filtered() {
-    return this.source
+    return this.sources
   }
 
   /**
-   * Colum's nouns
+   * Colum's nouns getter
    *
    * @return {string[]} - colum's nouns
    */
   get columns() {
-    let headers = this._columns || []
+    let headers = this.options.columns || []
 
     if (headers.length > 0) {
       return headers
     }
 
-    this.filtered.map((el) => {
+    this.filtered.forEach((el) => {
       let tmpHeaders = Object.keys(el)
 
       for (let col of tmpHeaders) {
@@ -51,16 +34,17 @@ export default class Nativetable {
       }
     })
 
-    return headers
+    this.options.columns = headers
+    return this.options.columns
   }
 
   /**
-   * Colum's nouns
+   * Colum's nouns setter
    *
    * @param {string[]} value - colum's nouns
    */
   set columns(value) {
-    this._columns = []
+    this.options.columns = []
 
     if (value == null) {
       return
@@ -68,7 +52,7 @@ export default class Nativetable {
 
     for (let noun of value) {
       if (typeof noun === 'string') {
-        this._columns.push(noun)
+        this.options.columns.push(noun)
       }
     }
   }
@@ -82,10 +66,13 @@ export default class Nativetable {
    *
    * @return {Nativetable} - an instance of Nativetable
    */
-  constructor(id, { datasource = [], filters = {}, columns = [] } = {}) {
-    this._tableBox = document.getElementById(id)
-    this.source = datasource
+  constructor(id, { sources = [], filters = {}, columns = [] } = {}) {
+    this.options = {}
+
+    this.options.id = id
+    this.options.box = document.getElementById(id)
     this.columns = columns
+    this.sources = sources
 
     this.draw()
   }
@@ -96,21 +83,41 @@ export default class Nativetable {
   draw() {
     let headerstr = ''
     let bodystr = ''
-    for (let noun of this.columns) {
-      headerstr += `<td>${noun}</td>`
+    for (let name of this.columns) {
+      headerstr += `
+      <td>
+        ${name}
+      </td>`
     }
-    headerstr = `<tr>${headerstr}</tr>`
+
+    headerstr = `
+    <tr>
+      ${headerstr}
+    </tr>`
 
     for (let row of this.filtered) {
       let rowstr = ''
-      for (let noun of this.columns) {
-        let val = typeof row[noun] === 'undefined' ? '' : row[noun]
-        rowstr += `<td>${val}</td>`
+      for (let name of this.columns) {
+        let val = typeof row[name] === 'undefined' ? '' : row[name]
+        rowstr += `
+        <td>
+          ${val}
+        </td>`
       }
-      bodystr += `<tr class="nativetable-row" data-nativetable-object="${this.objectSignature(row)}">${rowstr}</tr>`
+
+      bodystr += `
+      <tr class="nativetable-row" data-nativetable-object="${this.objectSignature(row)}">
+        ${rowstr}
+      </tr>`
     }
 
-    this._tableBox.innerHTML = `<thead class="nativetable-head">${headerstr}</thead><tbody class="nativetable-body">${bodystr}</tbody>`
+    this.options.box.innerHTML = `
+    <thead class="nativetable-head">
+      ${headerstr}
+    </thead>
+    <tbody class="nativetable-body">
+      ${bodystr}
+    </tbody>`
   }
 
   /**

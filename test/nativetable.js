@@ -24,7 +24,7 @@ describe('Nativetable', () => {
   })
 
   beforeEach(() => {
-    nt.source = [
+    nt.sources = [
       {
         id: 12,
         name: 'bob',
@@ -54,31 +54,22 @@ describe('Nativetable', () => {
 
     it('should init source with empty array when no options is passed', () => {
       nt = new Nativetable('id')
-      nt.source.should.be.an.instanceof(Array)
-      nt.source.should.be.empty
+      nt.sources.should.be.an.instanceof(Array)
+      nt.sources.should.be.empty
     })
 
     it('should init columns with array of keys string when no options is passed', () => {
-      nt.source.should.be.an.instanceof(Array)
-      nt.source.should.not.be.empty
-    })
-  })
-
-  describe('#source', () => {
-    it('should not modify values', () => {
-      nt.source[0].id.should.equal(12)
-      nt.source[1].name.should.equal('sarah')
-      nt.source[0].age.should.equal(81)
-      nt.source[1].man.should.equal(false)
+      nt.sources.should.be.an.instanceof(Array)
+      nt.sources.should.not.be.empty
     })
   })
 
   describe('#filtered', () => {
-    it('should be equal to source', () => {
-      nt.filtered[0].id.should.equal(nt.source[0].id)
-      nt.filtered[1].name.should.equal(nt.source[1].name)
-      nt.filtered[0].age.should.equal(nt.source[0].age)
-      nt.filtered[1].man.should.equal(nt.source[1].man)
+    it('should be equal to sources', () => {
+      nt.filtered[0].id.should.equal(nt.sources[0].id)
+      nt.filtered[1].name.should.equal(nt.sources[1].name)
+      nt.filtered[0].age.should.equal(nt.sources[0].age)
+      nt.filtered[1].man.should.equal(nt.sources[1].man)
     })
   })
 
@@ -88,7 +79,7 @@ describe('Nativetable', () => {
     })
 
     it('should have datasource keys as columns name by default', () => {
-      nt._columns = null
+      nt.options.columns = null
       nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
     })
 
@@ -100,7 +91,7 @@ describe('Nativetable', () => {
     it('should replace _column by an empty array if user try to set columns as null', () => {
       nt.columns = null
       nt.columns = undefined
-      nt._columns.should.to.eql([])
+      nt.options.columns.should.to.eql([])
     })
 
     it('should have the given array elements as columns name', () => {
@@ -123,27 +114,27 @@ describe('Nativetable', () => {
   describe('#draw', () => {
     it('should generate string in table tag', () => {
       nt.draw()
-      nt._tableBox.innerHTML.should.be.a('string')
+      nt.options.box.innerHTML.should.be.a('string')
     })
 
     it('should generate string with all columns name in tablebox', () => {
       nt.columns = []
       nt.draw()
-      nt._tableBox.innerHTML.should.contain('name')
-      nt._tableBox.innerHTML.should.contain('man')
-      nt._tableBox.innerHTML.should.contain('id')
-      nt._tableBox.innerHTML.should.contain('brother')
-      nt._tableBox.innerHTML.should.contain('age')
+      nt.options.box.innerHTML.should.contain('name')
+      nt.options.box.innerHTML.should.contain('man')
+      nt.options.box.innerHTML.should.contain('id')
+      nt.options.box.innerHTML.should.contain('brother')
+      nt.options.box.innerHTML.should.contain('age')
     })
 
     it('should generate string with only indicated columns name in tablebox', () => {
       nt.columns = ['name', 'brother']
       nt.draw()
-      nt._tableBox.innerHTML.should.contain('name')
-      nt._tableBox.innerHTML.should.not.contain('man')
-      nt._tableBox.innerHTML.should.not.contain('id')
-      nt._tableBox.innerHTML.should.contain('brother')
-      nt._tableBox.innerHTML.should.not.contain('age')
+      nt.options.box.innerHTML.should.contain('name')
+      nt.options.box.innerHTML.should.not.contain('man')
+      nt.options.box.innerHTML.should.not.contain('id')
+      nt.options.box.innerHTML.should.contain('brother')
+      nt.options.box.innerHTML.should.not.contain('age')
     })
   })
 })
