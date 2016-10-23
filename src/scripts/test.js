@@ -1,3 +1,5 @@
+/* global Nativetable */
+
 'use strict'
 
 let data = [
@@ -49,7 +51,7 @@ let data = [
 ]
 
 let main = () => {
-  let nt = new Nativetable('tabletest', {
+  let nt = new Nativetable('test', {
     sources: data
   })
 

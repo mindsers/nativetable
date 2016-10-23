@@ -118,12 +118,14 @@ export default class Nativetable {
     }
 
     this.options.box.innerHTML = `
-    <thead class="nativetable-head">
-      ${headerstr}
-    </thead>
-    <tbody class="nativetable-body">
-      ${bodystr}
-    </tbody>`
+    <table>
+      <thead class="nativetable-head">
+        ${headerstr}
+      </thead>
+      <tbody class="nativetable-body">
+        ${bodystr}
+      </tbody>
+    </table>`
   }
 
   /**
