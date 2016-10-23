@@ -50,7 +50,7 @@ let data = [
 
 let main = () => {
   let table = new Nativetable('tabletest', {
-    datasource: data
+    sources: data
   })
 }
 
