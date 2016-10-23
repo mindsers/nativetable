@@ -49,9 +49,11 @@ let data = [
 ]
 
 let main = () => {
-  let table = new Nativetable('tabletest', {
+  let nt = new Nativetable('tabletest', {
     sources: data
   })
+
+  console.log(nt)
 }
 
 if (document.readyState === `interactive` || document.readyState === `complete`) {

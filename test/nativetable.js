@@ -64,15 +64,6 @@ describe('Nativetable', () => {
     })
   })
 
-  describe('#source', () => {
-    it('should not modify values', () => {
-      nt.sources[0].id.should.equal(12)
-      nt.sources[1].name.should.equal('sarah')
-      nt.sources[0].age.should.equal(81)
-      nt.sources[1].man.should.equal(false)
-    })
-  })
-
   describe('#filtered', () => {
     it('should be equal to sources', () => {
       nt.filtered[0].id.should.equal(nt.sources[0].id)

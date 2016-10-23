@@ -1,24 +1,6 @@
 export default class Nativetable {
 
   /**
-   * Data sources of Nativetable
-   *
-   * @return {Object[]} - sources
-   */
-  get sources() {
-    return this._data
-  }
-
-  /**
-   * Data sources of Nativetable.
-   *
-   * @param {Object[]} value - sources
-   */
-  set sources(value) {
-    this._data = value
-  }
-
-  /**
    * Data source filtered by filters
    *
    * @return {Object[]}
