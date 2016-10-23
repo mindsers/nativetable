@@ -2,13 +2,18 @@
   "name": "nativetable",
   "version": "1.0.0",
   "description": "Create and use dynamics HTML tables with native JS",
+  "repository": "https://git.nathanaelcherrier.com/mindsers/nativetable.git",
   "main": "src/scripts/build/nativetable.min.js",
   "scripts": {
     "build:js": "rollup -c",
     "build:clean": "rm -rf src/scripts/build",
-    "build:dev": "npm run build:clean && npm run build:js -- --sourcemap -w",
-    "build:prod": "npm run build:clean && npm run build:js",
-    "build": "npm run build:prod"
+    "build:dev": "NODE_ENV=development npm run build:clean && npm run build:js -- --sourcemap -w",
+    "build:prod": "NODE_ENV=production npm run build:clean && npm run build:js",
+    "build": "npm run build:prod",
+    "test:coverage": "NODE_ENV=test nyc mocha",
+    "test:unit": "mocha -r babel-core/register",
+    "test:clean": "rm -rf coverage",
+    "test": "npm run test:clean && npm run test:coverage"
   },
   "keywords": [
     "table",
@@ -17,16 +22,33 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-preset-es2015-rollup": "^1.2.0",
+    "babel-plugin-istanbul": "^2.0.3",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-register": "^6.16.3",
+    "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
     "eslint": "^3.7.1",
     "eslint-config-standard": "^6.2.0",
     "eslint-plugin-promise": "^3.0.0",
     "eslint-plugin-standard": "^2.0.1",
+    "mocha": "^3.1.2",
+    "nyc": "^8.3.2",
     "rollup": "^0.36.3",
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-watch": "^2.5.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "nyc": {
+    "reporter": [
+      "text",
+      "lcov",
+      "html"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  }
 }

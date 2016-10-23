@@ -1,11 +1,25 @@
+image: node:latest
+
 stages:
+  - test
   - build
   - mirror
+
+before_script:
+  - npm install
+
+unit_test:
+  stage: test
+  script:
+    - npm test
+  except:
+    - master
+  tags:
+    - nodejs
 
 build_prod:
   stage: build
   script:
-    - npm install
     - npm run build
   only:
     - master
@@ -13,7 +27,7 @@ build_prod:
     paths:
     - src/script/build/nativetable.min.js
   tags:
-    - shell
+    - nodejs
 
 update_github:
   stage: mirror
@@ -23,4 +37,4 @@ update_github:
   only:
     - master
   tags:
-    - shell
+    - nodejs

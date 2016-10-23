@@ -8,7 +8,18 @@ export default {
   entry: 'src/scripts/nativetable/nativetable.js',
   external,
   plugins: [
-    babel(),
+    babel({
+      presets: [
+        [
+          'es2015',
+          {
+            modules: false
+          }
+        ]
+      ],
+      exclude: 'node_modules/**',
+      babelrc: false
+    }),
     uglify()
   ],
   targets: [
