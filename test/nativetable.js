@@ -83,13 +83,24 @@ describe('Nativetable', () => {
   })
 
   describe('#columns', () => {
+    it('should have datasource keys as columns name', () => {
+      nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+    })
+
     it('should have datasource keys as columns name by default', () => {
+      nt._columns = null
       nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
     })
 
     it('should have datasource keys as columns name when user would force empty array', () => {
       nt.columns = []
       nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+    })
+
+    it('should replace _column by an empty array if user try to set columns as null', () => {
+      nt.columns = null
+      nt.columns = undefined
+      nt._columns.should.to.eql([])
     })
 
     it('should have the given array elements as columns name', () => {

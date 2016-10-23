@@ -62,6 +62,10 @@ export default class Nativetable {
   set columns(value) {
     this._columns = []
 
+    if (value == null) {
+      return
+    }
+
     for (let noun of value) {
       if (typeof noun === 'string') {
         this._columns.push(noun)
