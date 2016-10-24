@@ -68,7 +68,7 @@ export default class Nativetable {
    *
    * @return {Nativetable} - an instance of Nativetable
    */
-  constructor(id, { sources = [], filters = {}, columns = [] } = {}) {
+  constructor(id, { sources = [], filters = {}, columns = [], pagination = {} } = {}) {
     this.options = {}
 
     if (typeof id !== 'string' || document.getElementById(id) == null) {
@@ -77,6 +77,11 @@ export default class Nativetable {
 
     this.options.id = id
     this.options.box = document.getElementById(id)
+    this.options.pagination = {
+      current: 0,
+      nbElements: typeof pagination.nbElements === 'number' ? pagination.nbElements : -1
+    }
+
     this.columns = columns
     this.sources = sources
 
@@ -85,8 +90,10 @@ export default class Nativetable {
 
   /**
    * Draw HTML table.
+   *
+   * @param {number} page - page to draw
    */
-  draw() {
+  draw(page = 0) {
     let headerstr = ''
     let bodystr = ''
     for (let name of this.columns) {
@@ -126,6 +133,23 @@ export default class Nativetable {
         ${bodystr}
       </tbody>
     </table>`
+  }
+
+  paginatedRows(page = 0) {
+    let nb = this.options.pagination.nbElements
+
+    if (nb === -1) {
+      return this.filtered
+    }
+
+    let firstEl = nb * page
+    let elements = []
+
+    for (let index = firstEl; index < firstEl + nb; index += 1) {
+      elements.push(this.filtered[index])
+    }
+
+    return elements
   }
 
   /**
