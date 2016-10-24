@@ -154,4 +154,55 @@ describe('Nativetable', () => {
       nt.options.box.innerHTML.should.not.contain('age')
     })
   })
+
+  describe('#paginatedRows', () => {
+    beforeEach(() => {
+      nt.options.pagination.nbElements = 10
+      nt.sources = [
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true }
+      ]
+    })
+
+    it('should return filtered if nbElements is equal to -1', () => {
+      nt.options.pagination.nbElements = -1
+      nt.paginatedRows(0).should.to.eql(nt.filtered)
+    })
+
+    it('should return 10 elements if nbElements is equal to 10', () => {
+      nt.paginatedRows(0).length.should.equal(10)
+    })
+
+    it('should return only 2 elements if nbElements is equal to 10 and source length is equal 2', () => {
+      nt.sources = [
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true }
+      ]
+      nt.paginatedRows(0).length.should.equal(2)
+    })
+
+    it('should return empty array if data no exist for given page', () => {
+      nt.paginatedRows(12).should.to.eql([])
+    })
+
+    it('should return elements 10 to 19 if page is equal to 1', () => {
+      let rows = nt.paginatedRows(1)
+
+      for (let index in rows) {
+        rows[index].should.to.eql(nt.filtered[index + 10])
+      }
+    })
+  })
 })
