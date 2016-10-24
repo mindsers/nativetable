@@ -81,6 +81,7 @@ export default class Nativetable {
       current: 0,
       nbElements: typeof pagination.nbElements === 'number' ? pagination.nbElements : -1
     }
+    this.options.pagination.isPaginated = this.options.pagination.nbElements !== -1
 
     this.columns = columns
     this.sources = sources
@@ -137,15 +138,20 @@ export default class Nativetable {
 
   paginatedRows(page = 0) {
     let nb = this.options.pagination.nbElements
+    let firstEl = nb * page
+    let offset = this.filtered.length - firstEl
+    let lastEl = offset < firstEl + nb ? offset : firstEl + nb
+    let elements = []
 
     if (nb === -1) {
       return this.filtered
     }
 
-    let firstEl = nb * page
-    let elements = []
+    if (firstEl >= this.filtered.length) {
+      return elements
+    }
 
-    for (let index = firstEl; index < firstEl + nb; index += 1) {
+    for (let index = firstEl; index < lastEl; index += 1) {
       elements.push(this.filtered[index])
     }
 
