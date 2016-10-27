@@ -1,13 +1,69 @@
 export default class Nativetable {
 
   /**
-   * Data source filtered by filters
+   * Data sources
+   * Getter
+   *
+   * @return {Object[]}
+   */
+  get sources() {
+    return this.data.sources
+  }
+
+  /**
+   * Data sources
+   * Setter
+   *
+   * @return {Object[]}
+   */
+  set sources(rows) {
+    this.data.sources = rows
+  }
+
+  /**
+   * Data sources filtered by filters
    * Getter
    *
    * @return {Object[]}
    */
   get filtered() {
     return this.sources
+  }
+
+  /**
+   * Data sources paginated
+   * Getter
+   *
+   * @return {Object[]}
+   */
+  get paginated() {
+    if (this.data.paginated && this.data.paginated.length > 0) { // pagination en cache
+      return this.data.paginated
+    }
+
+    const sources = this.filtered
+    const maxLength = this.options.pagination.maxLength
+
+    if (maxLength === -1) { // pas de pagination
+      this.data.paginated = sources
+      return this.data.paginated
+    }
+
+    let pages = []
+    let page = []
+
+    for (let row of sources) {
+      if (page.length >= maxLength) {
+        pages.push(page)
+        page = []
+      }
+
+      page.push(row)
+    }
+    pages.push(page)
+
+    this.data.paginated = pages
+    return this.data.paginated
   }
 
   /**
@@ -70,6 +126,7 @@ export default class Nativetable {
    */
   constructor(id, { sources = [], filters = {}, columns = [], pagination = {} } = {}) {
     this.options = {}
+    this.data = {}
 
     if (typeof id !== 'string' || document.getElementById(id) == null) {
       throw new TypeError('First parameter of Nativetable need to be a valid tag ID.')
@@ -78,10 +135,9 @@ export default class Nativetable {
     this.options.id = id
     this.options.box = document.getElementById(id)
     this.options.pagination = {
-      current: 0,
-      nbElements: typeof pagination.nbElements === 'number' ? pagination.nbElements : -1
+      currentPage: 0,
+      maxLength: typeof pagination.maxLength === 'number' ? pagination.maxLength : -1
     }
-    this.options.pagination.isPaginated = this.options.pagination.nbElements !== -1
 
     this.columns = columns
     this.sources = sources
@@ -137,7 +193,7 @@ export default class Nativetable {
   }
 
   paginatedRows(page = 0) {
-    let nb = this.options.pagination.nbElements
+    let nb = this.options.pagination.maxLength
     let firstEl = nb * page
     let offset = this.filtered.length - firstEl
     let lastEl = offset < firstEl + nb ? offset : firstEl + nb
