@@ -37,7 +37,11 @@ export default class Nativetable {
    * @return {Object[]}
    */
   get paginated() {
-    if (this.data.paginated && this.data.paginated.length > 0) { // pagination en cache
+    if ( // pagination en cache
+      this.data.paginated &&
+      this.data.paginated.length > 0 &&
+      this.data.reloading === false
+    ) {
       return this.data.paginated
     }
 
@@ -143,6 +147,19 @@ export default class Nativetable {
     this.sources = sources
 
     this.draw()
+  }
+
+  /**
+   * Reload data before drawing table
+   *
+   * @param {Object[]} rows - objects to reload
+   */
+  reload(rows = []) {
+    this.sources = rows.length > 0 ? rows : this.sources
+
+    this.data.reloading = true
+    this.draw()
+    this.data.reloading = false
   }
 
   /**
