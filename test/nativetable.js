@@ -16,10 +16,21 @@ describe('Nativetable', () => {
 
   beforeEach(() => {
     global.document = {
+      htmlElement: {
+        innerHTML: '',
+        children: [],
+        dataset: {},
+        classList: {
+          add() {}
+        },
+        appendChild() {},
+        insertBefore() {}
+      },
       getElementById() {
-        return {
-          innerHTML: ''
-        }
+        return this.htmlElement
+      },
+      createElement() {
+        return this.htmlElement
       }
     }
 

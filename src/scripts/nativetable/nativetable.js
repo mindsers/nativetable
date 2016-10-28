@@ -123,11 +123,11 @@ export default class Nativetable {
   }
 
   /**
-   * @param {string}    id                  - identifiant of <table/> tag targeted
-   * @param {Object}    options             - options of Nativetable
-   * @param {Object[]}  options.datasource  - array of source values
-   * @param {Object}    options.filters     - filters to applies
-   * @param {string[]}  options.columns      - column's nouns
+   * @param {string}    id                    - identifiant of <table/> tag targeted
+   * @param {Object}    [options]             - options of Nativetable
+   * @param {Object[]}  [options.datasource]  - array of source values
+   * @param {Object}    [options.filters]     - filters to applies
+   * @param {string[]}  [options.columns]     - column's nouns
    *
    * @throws {TypeError} if the id parameter is invalid
    *
@@ -157,7 +157,7 @@ export default class Nativetable {
   /**
    * Reload data before drawing table
    *
-   * @param {Object[]} rows - objects to reload
+   * @param {Object[]} [rows] - objects to reload
    */
   reload(rows = []) {
     this.options.pagination.currentPage = 0
@@ -225,6 +225,13 @@ export default class Nativetable {
     this.options.box.insertBefore(tableTag, paginationTag)
   }
 
+  /**
+   * Builder for table header
+   *
+   * @param {string[]} cols - Array of columns
+   *
+   * @return {HTMLElement} A thead HTML tag
+   */
   buildTableHeader(cols) {
     const columns = cols
 
@@ -243,6 +250,14 @@ export default class Nativetable {
     return theadTag
   }
 
+  /**
+   * Builder for table body
+   *
+   * @param {Object[]} rows - All rows to display
+   * @param {string[]} cols - Array of columns
+   *
+   * @return {HTMLElement} A tbody HTML tag with all rows inside
+   */
   buildTableBody(rows, cols) {
     const sources = rows
     const columns = cols
@@ -268,6 +283,14 @@ export default class Nativetable {
     return tbodyTag
   }
 
+  /**
+   * Builder for pagination ul
+   *
+   * @param {array[]} pages - Paginated rows
+   * @param {number} [current] - Number of current page
+   *
+   * @return {HTMLElement} A ul HTML tag for pagination
+   */
   buildPagination(pages, current = 0) {
     const sources = pages
 
@@ -295,6 +318,11 @@ export default class Nativetable {
     return ulTag
   }
 
+  /**
+   * Event handler. Call when user click on pagination links
+   *
+   * @param {Event} event - the event
+   */
   onPaginationClick(event) {
     event.preventDefault()
 
