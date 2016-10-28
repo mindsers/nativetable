@@ -139,33 +139,6 @@ describe('Nativetable', () => {
     })
   })
 
-  describe('#draw', () => {
-    it('should generate string in table tag', () => {
-      nt.draw()
-      nt.options.box.innerHTML.should.be.a('string')
-    })
-
-    it('should generate string with all columns name in tablebox', () => {
-      nt.columns = []
-      nt.draw()
-      nt.options.box.innerHTML.should.contain('name')
-      nt.options.box.innerHTML.should.contain('man')
-      nt.options.box.innerHTML.should.contain('id')
-      nt.options.box.innerHTML.should.contain('brother')
-      nt.options.box.innerHTML.should.contain('age')
-    })
-
-    it('should generate string with only indicated columns name in tablebox', () => {
-      nt.columns = ['name', 'brother']
-      nt.draw()
-      nt.options.box.innerHTML.should.contain('name')
-      nt.options.box.innerHTML.should.not.contain('man')
-      nt.options.box.innerHTML.should.not.contain('id')
-      nt.options.box.innerHTML.should.contain('brother')
-      nt.options.box.innerHTML.should.not.contain('age')
-    })
-  })
-
   describe('#reload', () => {
     it('should call draw', () => {
       chai.spy.on(nt, 'draw')
