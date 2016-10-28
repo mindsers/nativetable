@@ -35,18 +35,21 @@ Add a script tag on your page to call Nativatable.
 
 ```js
 // Show all data in table.
-let ntable = new Nativetable('tableid', { datasource });
+let ntable = new Nativetable('tableid', { sources });
 ```
 
 ```js
 // Show table with three columns : id, name and age.
 let ntable = new Nativetable('tableid', {
-    datasource: data,
+    sources: data,
     columns: [
         "id",
         "name",
         "age"
-    ]
+    ],
+    pagination: {
+        maxLength: 5
+    }
 });
 ```
 
@@ -87,9 +90,9 @@ This project is under the MIT License. (see LICENSE file in the root directory)
 [wiki]: https://git.nathanaelcherrier.com/mindsers/nativetable/wikis/home
 [project]: https://git.nathanaelcherrier.com/mindsers/nativetable
 
-[badge_build_status_image]: https://git.nathanaelcherrier.com/mindsers/nativetable/badges/master/build.svg
-[badge_build_status_link]: https://git.nathanaelcherrier.com/mindsers/nativetable/commits/master
+[badge_build_status_image]: https://git.nathanaelcherrier.com/mindsers/nativetable/badges/develop/build.svg
+[badge_build_status_link]: https://git.nathanaelcherrier.com/mindsers/nativetable/commits/develop
 [badge_js_code_style_image]: https://img.shields.io/badge/code%20style-standard-yellow.svg
 [badge_js_code_style_link]: http://standardjs.com
-[badge_coverage_report_image]: https://git.nathanaelcherrier.com/mindsers/nativetable/badges/master/coverage.svg
-[badge_coverage_report_link]: https://git.nathanaelcherrier.com/mindsers/nativetable/commits/master
+[badge_coverage_report_image]: https://git.nathanaelcherrier.com/mindsers/nativetable/badges/develop/coverage.svg
+[badge_coverage_report_link]: https://git.nathanaelcherrier.com/mindsers/nativetable/commits/develop

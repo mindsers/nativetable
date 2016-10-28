@@ -1,3 +1,5 @@
+/* global Nativetable */
+
 'use strict'
 
 let data = [
@@ -49,8 +51,11 @@ let data = [
 ]
 
 let main = () => {
-  let nt = new Nativetable('tabletest', {
-    sources: data
+  let nt = new Nativetable('test', {
+    sources: data,
+    pagination: {
+      maxLength: 5
+    }
   })
 
   console.log(nt)
