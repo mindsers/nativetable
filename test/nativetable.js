@@ -155,53 +155,55 @@ describe('Nativetable', () => {
     })
   })
 
-  describe('#paginatedRows', () => {
+  describe('#paginated', () => {
     beforeEach(() => {
-      nt.options.pagination.nbElements = 10
+      nt.options.pagination.maxLength = 10
+      nt.data.reloading = true
       nt.sources = [
+        { id: 12, name: 'bob', lastname: 'ronb', age: 81, man: true },
+        { id: 12, name: 'boab', lastname: 'rob', age: 81, man: true },
         { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'riob', age: 81, man: true },
+        { id: 12, name: 'bosb', lastname: 'rob', age: 81, man: true },
         { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bodb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rokb', age: 81, man: true },
+        { id: 12, name: 'bjob', lastname: 'rob', age: 81, man: true },
         { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true }
+        { id: 12, name: 'bob', lastname: 'rbob', age: 81, man: true },
+        { id: 12, name: 'bobg', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bodb', lastname: 'rfob', age: 81, man: true },
+        { id: 12, name: 'bovb', lastname: 'rorb', age: 81, man: true }
       ]
     })
 
-    it('should return filtered if nbElements is equal to -1', () => {
-      nt.options.pagination.nbElements = -1
-      nt.paginatedRows(0).should.to.eql(nt.filtered)
+    it('should return filtered if maxLength is equal to -1', () => {
+      nt.options.pagination.maxLength = -1
+      nt.paginated[0].should.to.eql(nt.filtered)
     })
 
-    it('should return 10 elements if nbElements is equal to 10', () => {
-      nt.paginatedRows(0).length.should.equal(10)
+    it('should return 10 elements if maxLength is equal to 10', () => {
+      nt.paginated[0].length.should.equal(10)
     })
 
-    it('should return only 2 elements if nbElements is equal to 10 and source length is equal 2', () => {
+    it('should return only 2 elements if maxLength is equal to 10 and source length is equal 2', () => {
       nt.sources = [
         { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
         { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true }
       ]
-      nt.paginatedRows(0).length.should.equal(2)
+      nt.paginated[0].length.should.equal(2)
     })
 
     it('should return empty array if data no exist for given page', () => {
-      nt.paginatedRows(12).should.to.eql([])
+      nt.sources = []
+      nt.paginated.should.to.eql([])
     })
 
     it('should return elements 10 to 19 if page is equal to 1', () => {
-      let rows = nt.paginatedRows(1)
+      let rows = nt.paginated[1]
 
       for (let index in rows) {
-        rows[index].should.to.eql(nt.filtered[index + 10])
+        rows[index].should.to.eql(nt.filtered[parseInt(index) + 10])
       }
     })
   })

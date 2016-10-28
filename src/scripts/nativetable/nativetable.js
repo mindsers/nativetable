@@ -37,7 +37,7 @@ export default class Nativetable {
    * @return {Object[]}
    */
   get paginated() {
-    if ( // pagination en cache
+    if ( // pagination cached
       this.data.paginated &&
       this.data.paginated.length > 0 &&
       this.data.reloading === false
@@ -48,8 +48,13 @@ export default class Nativetable {
     const sources = this.filtered
     const maxLength = this.options.pagination.maxLength
 
-    if (maxLength === -1) { // pas de pagination
-      this.data.paginated = sources
+    if (sources.length <= 0) { // no sources
+      this.data.paginated = []
+      return this.data.paginated
+    }
+
+    if (maxLength === -1) { // no pagination
+      this.data.paginated = [ sources ]
       return this.data.paginated
     }
 
@@ -155,6 +160,7 @@ export default class Nativetable {
    * @param {Object[]} rows - objects to reload
    */
   reload(rows = []) {
+    this.options.pagination.currentPage = 0
     this.sources = rows.length > 0 ? rows : this.sources
 
     this.data.reloading = true
@@ -164,12 +170,18 @@ export default class Nativetable {
 
   /**
    * Draw HTML table.
-   *
-   * @param {number} page - page to draw
    */
-  draw(page = 0) {
+  draw() {
+    const sources = this.paginated
+    const isPaginated = sources.length !== 1
+
+    let currentPage = this.options.pagination.currentPage
+    currentPage = currentPage < sources.length ? currentPage : 0
+
     let headerstr = ''
     let bodystr = ''
+    let paginationstr = ''
+
     for (let name of this.columns) {
       headerstr += `
       <td>
@@ -182,53 +194,52 @@ export default class Nativetable {
       ${headerstr}
     </tr>`
 
-    for (let row of this.filtered) {
-      let rowstr = ''
-      for (let name of this.columns) {
-        let val = typeof row[name] === 'undefined' ? '' : row[name]
-        rowstr += `
-        <td>
-          ${val}
-        </td>`
+    if (sources[currentPage]) {
+      for (let row of sources[currentPage]) {
+        let rowstr = ''
+        for (let name of this.columns) {
+          let val = typeof row[name] === 'undefined' ? '' : row[name]
+          rowstr += `
+          <td>
+            ${val}
+          </td>`
+        }
+
+        bodystr += `
+        <tr class="nt-row" data-nt-object="${this.objectSignature(row)}">
+          ${rowstr}
+        </tr>`
+      }
+    }
+
+    if (isPaginated) {
+      let listr = ''
+      for (let index in sources) {
+        let classes = 'nt-pagination-item'
+        classes += (index === currentPage) ? ' nt-pagination-item-active' : ''
+
+        listr += `
+        <li class="${classes}" data-nt-pagination-index="${index}">
+          <a href="#">${index}</a>
+        </li>`
       }
 
-      bodystr += `
-      <tr class="nativetable-row" data-nativetable-object="${this.objectSignature(row)}">
-        ${rowstr}
-      </tr>`
+      paginationstr = `
+      <ul class="nt-pagination">
+        ${listr}
+      </ul>`
     }
 
     this.options.box.innerHTML = `
     <table>
-      <thead class="nativetable-head">
+      <thead class="nt-head">
         ${headerstr}
       </thead>
-      <tbody class="nativetable-body">
+      <tbody class="nt-body">
         ${bodystr}
       </tbody>
-    </table>`
-  }
-
-  paginatedRows(page = 0) {
-    let nb = this.options.pagination.maxLength
-    let firstEl = nb * page
-    let offset = this.filtered.length - firstEl
-    let lastEl = offset < firstEl + nb ? offset : firstEl + nb
-    let elements = []
-
-    if (nb === -1) {
-      return this.filtered
-    }
-
-    if (firstEl >= this.filtered.length) {
-      return elements
-    }
-
-    for (let index = firstEl; index < lastEl; index += 1) {
-      elements.push(this.filtered[index])
-    }
-
-    return elements
+    </table>
+    ${paginationstr}`
   }
 
   /**
