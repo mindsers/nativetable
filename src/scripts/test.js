@@ -54,7 +54,7 @@ let main = () => {
   let nt = new Nativetable('test', {
     sources: data,
     pagination: {
-      maxLength: 6
+      maxLength: 5
     }
   })
 

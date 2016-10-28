@@ -198,9 +198,10 @@ export default class Nativetable {
     }
 
     if ( // Doesn't recreate the full table if already exist
-      this.options.box.children[1] &&
-      this.options.box.children[1].classList.contains('nt-table')
+      this.options.box.children[0] &&
+      this.options.box.children[0].classList.contains('nt-table')
     ) {
+      tableTag = this.options.box.children[0]
       theadTag = tableTag.children[0]
       tbodyTag = tableTag.children[1]
       tableTag.removeChild(tbodyTag)
@@ -277,6 +278,7 @@ export default class Nativetable {
 
       aTag.href = '#'
       aTag.textContent = index
+      aTag.addEventListener('click', this.onPaginationClick.bind(this))
 
       liTag.classList.add('nt-pagination-item')
       liTag.dataset.ntPaginationIndex = index
@@ -291,6 +293,15 @@ export default class Nativetable {
 
     ulTag.classList.add('nt-pagination')
     return ulTag
+  }
+
+  onPaginationClick(event) {
+    event.preventDefault()
+
+    let item = event.target.parentNode
+    this.options.pagination.currentPage = parseInt(item.dataset.ntPaginationIndex)
+
+    this.draw()
   }
 
   /**
