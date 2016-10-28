@@ -35,18 +35,21 @@ Add a script tag on your page to call Nativatable.
 
 ```js
 // Show all data in table.
-let ntable = new Nativetable('tableid', { datasource });
+let ntable = new Nativetable('tableid', { sources });
 ```
 
 ```js
 // Show table with three columns : id, name and age.
 let ntable = new Nativetable('tableid', {
-    datasource: data,
+    sources: data,
     columns: [
         "id",
         "name",
         "age"
-    ]
+    ],
+    pagination: {
+        maxLength: 5
+    }
 });
 ```
 
