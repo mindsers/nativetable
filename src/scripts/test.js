@@ -52,7 +52,10 @@ let data = [
 
 let main = () => {
   let nt = new Nativetable('test', {
-    sources: data
+    sources: data,
+    pagination: {
+      maxLength: 6
+    }
   })
 
   console.log(nt)

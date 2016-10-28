@@ -175,71 +175,122 @@ export default class Nativetable {
     const sources = this.paginated
     const isPaginated = sources.length !== 1
 
+    if (sources.length <= 0) {
+      return
+    }
+
     let currentPage = this.options.pagination.currentPage
     currentPage = currentPage < sources.length ? currentPage : 0
 
-    let headerstr = ''
-    let bodystr = ''
-    let paginationstr = ''
+    let tableTag, theadTag, tbodyTag, paginationTag
 
-    for (let name of this.columns) {
-      headerstr += `
-      <td>
-        ${name}
-      </td>`
+    if ( // Delete pagination if exist
+      this.options.box.children[1] &&
+      this.options.box.children[1].classList.contains('nt-pagination')
+    ) {
+      paginationTag = this.options.box.children[1]
+      this.options.box.removeChild(paginationTag)
     }
 
-    headerstr = `
-    <tr>
-      ${headerstr}
-    </tr>`
+    if (isPaginated) { // Rebuild pagination if data is paginated
+      paginationTag = this.buildPagination(sources, currentPage)
+      this.options.box.appendChild(paginationTag)
+    }
 
-    if (sources[currentPage]) {
-      for (let row of sources[currentPage]) {
-        let rowstr = ''
-        for (let name of this.columns) {
-          let val = typeof row[name] === 'undefined' ? '' : row[name]
-          rowstr += `
-          <td>
-            ${val}
-          </td>`
-        }
+    if ( // Doesn't recreate the full table if already exist
+      this.options.box.children[1] &&
+      this.options.box.children[1].classList.contains('nt-table')
+    ) {
+      theadTag = tableTag.children[0]
+      tbodyTag = tableTag.children[1]
+      tableTag.removeChild(tbodyTag)
 
-        bodystr += `
-        <tr class="nt-row" data-nt-object="${this.objectSignature(row)}">
-          ${rowstr}
-        </tr>`
+      tbodyTag = this.buildTableBody(sources[currentPage], this.columns)
+      tableTag.appendChild(tbodyTag)
+
+      return
+    }
+
+    // Creation
+    tableTag = document.createElement('table')
+    theadTag = this.buildTableHeader(this.columns)
+    tbodyTag = this.buildTableBody(sources[currentPage], this.columns)
+
+    tableTag.classList.add('nt-table')
+
+    tableTag.appendChild(theadTag)
+    tableTag.appendChild(tbodyTag)
+
+    this.options.box.insertBefore(tableTag, paginationTag)
+  }
+
+  buildTableHeader(cols) {
+    const columns = cols
+
+    let theadTag = document.createElement('thead')
+    let trTag = document.createElement('tr')
+
+    theadTag.classList.add('nt-head')
+
+    for (let name of columns) {
+      let tdTag = document.createElement('td')
+      tdTag.textContent = name
+      trTag.appendChild(tdTag)
+    }
+
+    theadTag.appendChild(trTag)
+    return theadTag
+  }
+
+  buildTableBody(rows, cols) {
+    const sources = rows
+    const columns = cols
+
+    let tbodyTag = document.createElement('tbody')
+    tbodyTag.classList.add('nt-body')
+
+    for (let row of sources) {
+      let trTag = document.createElement('tr')
+
+      trTag.classList.add('nt-row')
+      trTag.dataset.ntObject = this.objectSignature(row)
+
+      for (let name of columns) {
+        let tdTag = document.createElement('td')
+        tdTag.textContent = typeof row[name] === 'undefined' ? '' : row[name]
+        trTag.appendChild(tdTag)
       }
+
+      tbodyTag.appendChild(trTag)
     }
 
-    if (isPaginated) {
-      let listr = ''
-      for (let index in sources) {
-        let classes = 'nt-pagination-item'
-        classes += (index === currentPage) ? ' nt-pagination-item-active' : ''
+    return tbodyTag
+  }
 
-        listr += `
-        <li class="${classes}" data-nt-pagination-index="${index}">
-          <a href="#">${index}</a>
-        </li>`
+  buildPagination(pages, current = 0) {
+    const sources = pages
+
+    let ulTag = document.createElement('ul')
+    for (let index in sources) {
+      let liTag = document.createElement('li')
+      let aTag = document.createElement('a')
+
+      aTag.href = '#'
+      aTag.textContent = index
+
+      liTag.classList.add('nt-pagination-item')
+      liTag.dataset.ntPaginationIndex = index
+      liTag.appendChild(aTag)
+
+      if (index === current) {
+        liTag.classList.add('nt-pagination-item-active')
       }
 
-      paginationstr = `
-      <ul class="nt-pagination">
-        ${listr}
-      </ul>`
+      ulTag.appendChild(liTag)
     }
 
-    this.options.box.innerHTML = `
-    <table>
-      <thead class="nt-head">
-        ${headerstr}
-      </thead>
-      <tbody class="nt-body">
-        ${bodystr}
-      </tbody>
-    </table>
-    ${paginationstr}`
+    ulTag.classList.add('nt-pagination')
+    return ulTag
   }
 
   /**
