@@ -155,6 +155,32 @@ describe('Nativetable', () => {
     })
   })
 
+  describe('#reload', () => {
+    it('should call draw', () => {
+      chai.spy.on(nt, 'draw')
+      nt.reload()
+
+      nt.draw.should.have.be.called()
+    })
+
+    it('should reinit currentPage', () => {
+      nt.reload()
+      nt.options.pagination.currentPage.should.to.equal(0)
+    })
+
+    it('should reinit currentPage', () => {
+      nt.reload([
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true }
+      ])
+
+      nt.sources.should.to.eql([
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true }
+      ])
+    })
+  })
+
   describe('#paginated', () => {
     beforeEach(() => {
       nt.options.pagination.maxLength = 10
