@@ -123,17 +123,42 @@ export default class Nativetable {
   }
 
   /**
-   * @param {string}    id                    - identifiant of <table/> tag targeted
-   * @param {Object}    [options]             - options of Nativetable
-   * @param {Object[]}  [options.datasource]  - array of source values
-   * @param {Object}    [options.filters]     - filters to applies
-   * @param {string[]}  [options.columns]     - column's nouns
+   * Setting pagination
+   * Setter
    *
-   * @throws {TypeError} if the id parameter is invalid
+   * @param {number} maxLength - number max of elements per page
+   */
+  set pagination({ maxLength = -1 }) {
+    this.options.pagination.maxLength = maxLength
+  }
+
+  /**
+   * Setting pagination
+   * Getter
+   *
+   * @return {Object} current pagination settings
+   */
+  get pagination() {
+    return {
+      currentPage: this.options.pagination.currentPage,
+      maxLength: this.options.pagination.maxLength
+    }
+  }
+
+  /**
+   * @param {string}    id                             - identifiant of <table/> tag targeted
+   * @param {Object}    [options]                      - options of Nativetable
+   * @param {Object[]}  [options.sources]              - array of source values
+   * @param {Object}    [options.filters]              - filters to applies
+   * @param {string[]}  [options.columns]              - column's nouns
+   * @param {Object}    [options.pagination]           - options for pagination
+   * @param {Object}    [options.pagination.maxLength] - number max of elements per page
+   *
+   * @throws {TypeError} when the id parameter is invalid
    *
    * @return {Nativetable} - an instance of Nativetable
    */
-  constructor(id, { sources = [], filters = {}, columns = [], pagination = {} } = {}) {
+  constructor(id, { sources = [], filters = {}, columns = [], pagination: { maxLength = -1 } = {} } = {}) {
     this.options = {}
     this.data = {}
 
@@ -145,7 +170,7 @@ export default class Nativetable {
     this.options.box = document.getElementById(id)
     this.options.pagination = {
       currentPage: 0,
-      maxLength: typeof pagination.maxLength === 'number' ? pagination.maxLength : -1
+      maxLength
     }
 
     this.columns = columns
