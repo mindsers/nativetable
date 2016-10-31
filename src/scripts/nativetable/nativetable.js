@@ -21,6 +21,26 @@ export default class Nativetable {
   }
 
   /**
+   * Filters rules
+   * Getter
+   *
+   * @return {Object}
+   */
+  get filters() {
+    return this.options.filters
+  }
+
+  /**
+   * Filters rules
+   * Setter
+   *
+   * @return {Object}
+   */
+  set filters(filters) {
+    this.options.filters = filters
+  }
+
+  /**
    * Data sources filtered by filters
    * Getter
    *
