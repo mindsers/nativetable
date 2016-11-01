@@ -55,6 +55,18 @@ let main = () => {
     sources: data,
     pagination: {
       maxLength: 5
+    },
+    filters: {
+      $and: {
+        name: ['julie', 'john'],
+        age: (age) => {
+          return age >= 30 && age <= 39
+        }
+      },
+      $or: {
+        man: [false],
+        brothers: [1]
+      }
     }
   })
 

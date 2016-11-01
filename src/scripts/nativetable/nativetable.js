@@ -21,13 +21,134 @@ export default class Nativetable {
   }
 
   /**
+   * Filters rules
+   * Getter
+   *
+   * @return {Object}
+   */
+  get filters() {
+    return this.options.filters
+  }
+
+  /**
+   * Filters rules
+   * Setter
+   *
+   * @return {Object}
+   */
+  set filters(filters) {
+    this.options.filters = filters
+  }
+
+  /**
    * Data sources filtered by filters
    * Getter
    *
    * @return {Object[]}
    */
   get filtered() {
-    return this.sources
+    const filters = this.options.filters
+
+    if ( // pagination cached
+      this.data.filtered &&
+      this.data.filtered.length > 0 &&
+      this.data.reloading === false
+    ) {
+      return this.data.filtered
+    }
+
+    if (Object.keys(filters).length === 0) {
+      this.data.filtered = this.sources
+      return this.data.filtered
+    }
+
+    /**
+     * AND logical condition
+     *
+     * @param {Object[]} items - array of boolean value
+     * @returns {boolean}
+     */
+    let $and = (items) => {
+      let condition = true
+      for (let item of items) {
+        condition = condition && item
+      }
+
+      return condition
+    }
+
+    /**
+     * OR logical condition
+     *
+     * @param {Object[]} items - array of boolean value
+     * @returns {boolean}
+     */
+    let $or = (items) => {
+      let condition = false
+      for (let item of items) {
+        condition = condition || item
+      }
+
+      return condition
+    }
+
+    /**
+     * Calcul conditionnal result for one columns
+     *
+     * @param {Object} item - item to test
+     * @param {function|any[]} - array of value to match or a closure for custom condition
+     *
+     * @return {boolean}
+     */
+    let $resultForColumn = (item, condition) => {
+      if (typeof condition === 'function') { // custom condition
+        let closure = condition
+        let result = closure(item)
+        if (typeof result === 'boolean') {
+          return result
+        }
+
+        return false // bad return type of closure
+      }
+
+      let column = []
+      for (let value of condition) { // normal condition
+        column.push(item === value)
+      }
+
+      return $or(column)
+    }
+
+    this.data.filtered = this.sources.filter((item) => {
+      let result = []
+      if ('$and' in filters) {
+        let keys = Object.keys(filters.$and)
+        let conditions = filters['$and']
+        let resultAND = []
+
+        for (let key of keys) {
+          resultAND.push($resultForColumn(item[key], conditions[key]))
+        }
+
+        result.push($and(resultAND))
+      }
+
+      if ('$or' in filters) {
+        let keys = Object.keys(filters.$or)
+        let conditions = filters['$or']
+        let resultOR = []
+
+        for (let key of keys) {
+          resultOR.push($resultForColumn(item[key], conditions[key]))
+        }
+
+        result.push($or(resultOR))
+      }
+
+      return $and(result)
+    })
+
+    return this.data.filtered
   }
 
   /**
@@ -168,6 +289,7 @@ export default class Nativetable {
 
     this.options.id = id
     this.options.box = document.getElementById(id)
+    this.options.filters = filters
     this.options.pagination = {
       currentPage: 0,
       maxLength

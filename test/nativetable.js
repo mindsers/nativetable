@@ -92,12 +92,60 @@ describe('Nativetable', () => {
     })
   })
 
+  describe('#filters', () => {
+    it('should return same object as given', () => {
+      nt.filters = { $and: {} }
+      nt.filters.should.to.eql({ $and: {} })
+    })
+  })
+
   describe('#filtered', () => {
     it('should be equal to sources', () => {
       nt.filtered[0].id.should.equal(nt.sources[0].id)
       nt.filtered[1].name.should.equal(nt.sources[1].name)
       nt.filtered[0].age.should.equal(nt.sources[0].age)
       nt.filtered[1].man.should.equal(nt.sources[1].man)
+    })
+
+    it('should return data which match $and close', () => {
+      nt.filters = { $and: { name: ['bob'] } }
+      for (let row of nt.filtered) {
+        row.name.should.equal('bob')
+      }
+    })
+
+    it('should return data which match $or close', () => {
+      nt.filters = { $or: { name: ['bob'], age: [29] } }
+      nt.filtered.length.should.equal(2)
+    })
+
+    it('should return data which match custom condition', () => {
+      nt.filters = { $and: { age: (age) => {
+        return age >= 26 && age <= 32
+      } } }
+      nt.filtered.length.should.equal(1)
+    })
+
+    it('should ignore closure when closure not return boolean', () => {
+      let test = () => {
+        nt.filters = {
+          $and: {
+            age: (age) => {
+              return 'age >= 26 && age <= 32'
+            }
+          }
+        }
+      }
+
+      test.should.not.throw()
+    })
+
+    it('should return cached data when it is called miltiple time', () => {
+      nt.filtered
+      chai.spy.on(nt.sources, 'filter')
+      nt.filtered
+
+      nt.sources.filter.should.not.have.be.called()
     })
   })
 
@@ -215,6 +263,40 @@ describe('Nativetable', () => {
       for (let index in rows) {
         rows[index].should.to.eql(nt.filtered[parseInt(index) + 10])
       }
+    })
+  })
+
+  describe('#onPaginationClick', () => {
+    it('should call draw', () => {
+      chai.spy.on(nt, 'draw')
+      nt.onPaginationClick({
+        preventDefault() {},
+        target: {
+          parentNode: {
+            dataset: {
+              ntPaginationIndex: 3
+            }
+          }
+        }
+      })
+
+      nt.draw.should.have.be.called()
+    })
+
+    it('should change currentPage value', () => {
+      nt.options.pagination.currentPage = 0
+      nt.onPaginationClick({
+        preventDefault() {},
+        target: {
+          parentNode: {
+            dataset: {
+              ntPaginationIndex: 3
+            }
+          }
+        }
+      })
+
+      nt.options.pagination.currentPage.should.equal(3)
     })
   })
 })
