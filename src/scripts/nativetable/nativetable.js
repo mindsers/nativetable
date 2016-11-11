@@ -17,6 +17,8 @@ export default class Nativetable {
    * @return {Object[]}
    */
   set sources(rows) {
+    this.options.reloading.filtered = true
+    this.options.reloading.paginated = true
     this.data.sources = rows
   }
 
@@ -37,6 +39,7 @@ export default class Nativetable {
    * @return {Object}
    */
   set filters(filters) {
+    this.options.reloading.filtered = true
     this.options.filters = filters
   }
 
@@ -52,7 +55,7 @@ export default class Nativetable {
     if ( // pagination cached
       this.data.filtered &&
       this.data.filtered.length > 0 &&
-      this.data.reloading === false
+      this.options.reloading.filtered === false
     ) {
       return this.data.filtered
     }
@@ -148,6 +151,7 @@ export default class Nativetable {
       return $and(result)
     })
 
+    this.options.reloading.filtered = false
     return this.data.filtered
   }
 
@@ -161,7 +165,7 @@ export default class Nativetable {
     if ( // pagination cached
       this.data.paginated &&
       this.data.paginated.length > 0 &&
-      this.data.reloading === false
+      this.options.reloading.paginated === false
     ) {
       return this.data.paginated
     }
@@ -192,6 +196,7 @@ export default class Nativetable {
     }
     pages.push(page)
 
+    this.options.reloading.paginated = false
     this.data.paginated = pages
     return this.data.paginated
   }
@@ -250,6 +255,7 @@ export default class Nativetable {
    * @param {number} maxLength - number max of elements per page
    */
   set pagination({ maxLength = -1 }) {
+    this.options.reloading.paginated = true
     this.options.pagination.maxLength = maxLength
   }
 
@@ -289,6 +295,7 @@ export default class Nativetable {
 
     this.options.id = id
     this.options.box = document.getElementById(id)
+    this.options.reloading = {}
     this.options.filters = filters
     this.options.pagination = {
       currentPage: 0,
@@ -310,9 +317,10 @@ export default class Nativetable {
     this.options.pagination.currentPage = 0
     this.sources = rows.length > 0 ? rows : this.sources
 
-    this.data.reloading = true
+    this.options.reloading.filtered = true
+    this.options.reloading.paginated = true
+
     this.draw()
-    this.data.reloading = false
   }
 
   /**
