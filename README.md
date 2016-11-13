@@ -6,6 +6,8 @@
 
 Nativetable is a simple native es6 module to create and work with dynamics HTML tables.
 
+Nativetable allow you to sort, filter and paginate your data in an HTML table. No useless features, only one line of code is required to load your data.
+
 ## Installation
 
 You can build your own Nativetable with this project.
@@ -39,16 +41,29 @@ let ntable = new Nativetable('tableid', { sources });
 ```
 
 ```js
-// Show table with three columns : id, name and age.
+// Show table with more options
 let ntable = new Nativetable('tableid', {
     sources: data,
+    sorting: true,
+    pagination: {
+        maxLength: 5
+    },
     columns: [
         "id",
         "name",
         "age"
     ],
-    pagination: {
-        maxLength: 5
+    filters: {
+      $and: {
+        name: ['julie', 'sarah'],
+        age: (age) => {
+          return age >= 29 && age <= 39
+        }
+      },
+      $or: {
+        man: [false],
+        brothers: [1]
+      }
     }
 });
 ```
