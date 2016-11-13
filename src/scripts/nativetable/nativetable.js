@@ -302,8 +302,7 @@ export default class Nativetable {
     this.options.reloading = {}
     this.options.filters = filters
     this.options.sorting = {
-      activated: sorting,
-      columns: {}
+      activated: sorting
     }
     this.options.pagination = {
       currentPage: 0,
@@ -414,16 +413,16 @@ export default class Nativetable {
       tdTag.textContent = name
 
       if (this.options.sorting.activated) {
-        const glyphs = { asc: '\u25B2', desc: '\u25BC', none: '\u25B2\u25BC' }
-        let { order = 'none' } = this.options.sorting.columns[name] || {}
-        let glyph = glyphs[order]
+        const glyphList = { asc: '\u25B2', desc: '\u25BC', none: '\u25B2\u25BC' }
+        let order = this.options.sorting.column === name ? this.options.sorting.order : 'none'
+        let glyph = glyphList[order]
         let aTag = document.createElement('a')
 
         aTag.href = '#'
         aTag.addEventListener('click', this.onSortingClick.bind(this))
-        aTag.dataset.columnName = name
-
         aTag.textContent = `${name} ${glyph}`
+
+        tdTag.dataset.ntColumnName = name
         tdTag.textContent = ''
 
         tdTag.appendChild(aTag)
@@ -527,15 +526,13 @@ export default class Nativetable {
   onSortingClick(event) {
     event.preventDefault()
 
-    let item = event.target
+    let item = event.target.parentNode
 
-    if (!(item.dataset.columnName in this.options.sorting.columns)) {
-      this.options.sorting.columns = {}
-      this.options.sorting.columns[item.dataset.columnName] = {}
+    if (this.options.sorting.column !== item.dataset.ntColumnName) {
+      this.options.sorting.column = item.dataset.ntColumnName
+      this.options.sorting.order = 'none'
     }
-
-    let { order = 'none' } = this.options.sorting.columns[item.dataset.columnName]
-    this.options.sorting.columns[item.dataset.columnName].order = order === 'asc' ? 'desc' : 'asc'
+    this.options.sorting.order = this.options.sorting.order === 'asc' ? 'desc' : 'asc'
 
     this.options.reloading.headers = true
     this.draw()
