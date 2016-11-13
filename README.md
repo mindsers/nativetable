@@ -105,9 +105,9 @@ This project is under the MIT License. (see LICENSE file in the root directory)
 [wiki]: https://git.nathanaelcherrier.com/mindsers/nativetable/wikis/home
 [project]: https://git.nathanaelcherrier.com/mindsers/nativetable
 
-[badge_build_status_image]: https://git.nathanaelcherrier.com/mindsers/nativetable/badges/develop/build.svg
-[badge_build_status_link]: https://git.nathanaelcherrier.com/mindsers/nativetable/commits/develop
+[badge_build_status_image]: https://git.nathanaelcherrier.com/mindsers/nativetable/badges/master/build.svg
+[badge_build_status_link]: https://git.nathanaelcherrier.com/mindsers/nativetable/commits/master
 [badge_js_code_style_image]: https://img.shields.io/badge/code%20style-standard-yellow.svg
 [badge_js_code_style_link]: http://standardjs.com
-[badge_coverage_report_image]: https://git.nathanaelcherrier.com/mindsers/nativetable/badges/develop/coverage.svg
-[badge_coverage_report_link]: https://git.nathanaelcherrier.com/mindsers/nativetable/commits/develop
+[badge_coverage_report_image]: https://git.nathanaelcherrier.com/mindsers/nativetable/badges/master/coverage.svg
+[badge_coverage_report_link]: https://git.nathanaelcherrier.com/mindsers/nativetable/commits/master
