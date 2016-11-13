@@ -12,8 +12,6 @@ unit_test:
   stage: test
   script:
     - npm test
-  except:
-    - master
   tags:
     - nodejs
 
@@ -26,15 +24,5 @@ build_prod:
   artifacts:
     paths:
     - dist/nativetable.min.js
-  tags:
-    - nodejs
-
-update_github:
-  stage: mirror
-  script:
-    - git remote add github git@github.com:Mindsers/nativetable.git
-    - git push github master
-  only:
-    - master
   tags:
     - nodejs
