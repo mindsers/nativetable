@@ -10,9 +10,9 @@ let data = [
     man: true
   },
   {
-    id: 20,
+    id: 43,
     name: 'sarah',
-    age: 29,
+    age: 12,
     man: false
   },
   {
@@ -23,7 +23,7 @@ let data = [
     sisters: 3
   },
   {
-    id: 6,
+    id: 8,
     name: 'julie',
     age: 30,
     man: false
@@ -65,9 +65,9 @@ let main = () => {
     },
     filters: {
       $and: {
-        name: ['julie', 'john'],
+        name: ['julie', 'sarah'],
         age: (age) => {
-          return age >= 30 && age <= 39
+          return age >= 29 && age <= 39
         }
       },
       $or: {

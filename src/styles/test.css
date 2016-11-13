@@ -1,9 +1,88 @@
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../fonts/fontawesome-webfont.eot?v=4.7.0');
+  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  font-family: sans-serif;
+  font-weight: lighter;
+  color: #34495e;
+}
+
+h1, h2, table, ul, p {
+  margin: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+table {
+  border: 1px solid rgba(22, 160, 133, 1);
+  border-collapse: collapse;
+}
+
 td {
     width: 100px;
+    height: 30px;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.3);
 }
 
 thead td {
-    background-color: rgba(0, 0, 0, 0.5);
+    height: 40px;
+    background-color: rgba(22, 160, 133, 1);
+    color: white;
+}
+
+thead td a {
+  color: white;
+}
+
+tbody tr:nth-child(even) {
+  background-color: rgba(22, 160, 133, 0.2);
+}
+
+.nt-pagination-item {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 4px;
+  background-color: rgba(22, 160, 133, 0.2);
+}
+
+.nt-pagination-item a {
+  color: #34495e;
+}
+
+.nt-pagination-item-active {
+  background-color: rgba(22, 160, 133, 0.9);
+}
+
+.nt-pagination-item-active a {
+  color: white;
+}
+
+.nt-icon-sort-none, .nt-icon-sort-asc, .nt-icon-sort-desc {
+  font: normal normal normal 14px/1 FontAwesome;
+}
+
+.nt-icon-sort-none::before {
+  content: "\f0dc";
+}
+
+.nt-icon-sort-asc::before {
+  content: "\f0de";
+}
+
+.nt-icon-sort-desc::before {
+  content: "\f0dd";
 }

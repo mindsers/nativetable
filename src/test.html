@@ -4,18 +4,57 @@
         <meta charset="utf-8">
         <title>NativeTable test</title>
         <link rel="stylesheet" href="styles/test.css"/>
-        <style media="screen">
-          div {
-            margin: 10px;
-          }
-        </style>
     </head>
     <body>
+        <h1>Demo</h1>
         <h2>Pagination</h2>
+        <p>
+          Sample code for pagination
+        </p>
+        <pre>
+          let nt = new Nativetable('nativetable', {
+            sources: data,
+            pagination: {
+              maxLength: 5
+            }
+          })
+        </pre>
         <div id="test-pagination"></div>
         <h2>Filtering</h2>
+        <p>
+          Sample code for filtering data
+        </p>
+        <pre>
+          let nt = new Nativetable('nativetable', {
+            sources: data,
+            pagination: {
+              maxLength: 5
+            },
+            filters: {
+              $and: {
+                name: ['julie', 'sarah'],
+                age: (age) => {
+                  return age >= 29 && age <= 39
+                }
+              },
+              $or: {
+                man: [false],
+                brothers: [1]
+              }
+            }
+          })
+        </pre>
         <div id="test-filtering"></div>
         <h2>Sorting</h2>
+        <p>
+          Sample code for sortable table
+        </p>
+        <pre>
+          let nt = new Nativetable('nativetable', {
+            sources: data,
+            sorting: true
+          })
+        </pre>
         <div id="test-sorting"></div>
         <script src="scripts/build/nativetable.min.js"></script>
         <script src="scripts/test.js"></script>
