@@ -149,67 +149,24 @@ describe('Nativetable', () => {
     })
   })
 
-  describe('#columns', () => {
-    it('should have datasource keys as columns name', () => {
-      nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+  describe('#pagination', () => {
+    it('should set maxLength', () => {
+      nt.pagination = { maxLength: 3 }
+      nt.options.pagination.maxLength.should.be.equal(3)
     })
 
-    it('should have datasource keys as columns name by default', () => {
-      nt.options.columns = null
-      nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+    it('should set maxLength to -1 not specified', () => {
+      nt.pagination = { }
+      nt.options.pagination.maxLength.should.be.equal(-1)
     })
 
-    it('should have datasource keys as columns name when user would force empty array', () => {
-      nt.columns = []
-      nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+    it('should force reload pagination cache', () => {
+      nt.pagination = { }
+      nt.options.reloading.paginated.should.be.equal(true)
     })
 
-    it('should replace _column by an empty array if user try to set columns as null', () => {
-      nt.columns = null
-      nt.columns = undefined
-      nt.options.columns.should.to.eql([])
-    })
-
-    it('should have the given array elements as columns name', () => {
-      nt.columns = ['lastname', 'age']
-      nt.columns.should.to.eql(['lastname', 'age'])
-    })
-
-    it('should have the given array elements as columns name only when element is a string', () => {
-      nt.columns = ['lastname', ['name'], 'age', 2, 'brother']
-      nt.columns.should.to.eql(['lastname', 'age', 'brother'])
-    })
-  })
-
-  describe('#objectSignature', () => {
-    it('should return an encoded ocject as string', () => {
-      nt.objectSignature({}).should.be.a('string')
-    })
-  })
-
-  describe('#reload', () => {
-    it('should call draw', () => {
-      chai.spy.on(nt, 'draw')
-      nt.reload()
-
-      nt.draw.should.have.be.called()
-    })
-
-    it('should reinit currentPage', () => {
-      nt.reload()
-      nt.options.pagination.currentPage.should.to.equal(0)
-    })
-
-    it('should reinit currentPage', () => {
-      nt.reload([
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true }
-      ])
-
-      nt.sources.should.to.eql([
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
-        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true }
-      ])
+    it('should have property currentPage', () => {
+      nt.pagination.should.have.property('currentPage')
     })
   })
 
@@ -267,9 +224,10 @@ describe('Nativetable', () => {
   })
 
   describe('#onPaginationClick', () => {
-    it('should call draw', () => {
-      chai.spy.on(nt, 'draw')
-      nt.onPaginationClick({
+    let event
+
+    beforeEach(() => {
+      event = {
         preventDefault() {},
         target: {
           parentNode: {
@@ -278,23 +236,19 @@ describe('Nativetable', () => {
             }
           }
         }
-      })
+      }
+    })
+
+    it('should call draw', () => {
+      chai.spy.on(nt, 'draw')
+      nt.onPaginationClick(event)
 
       nt.draw.should.have.be.called()
     })
 
     it('should change currentPage value', () => {
       nt.options.pagination.currentPage = 0
-      nt.onPaginationClick({
-        preventDefault() {},
-        target: {
-          parentNode: {
-            dataset: {
-              ntPaginationIndex: 3
-            }
-          }
-        }
-      })
+      nt.onPaginationClick(event)
 
       nt.options.pagination.currentPage.should.equal(3)
     })
@@ -333,6 +287,70 @@ describe('Nativetable', () => {
       } else {
         nt.options.sorting.order.should.equal('asc')
       }
+    })
+  })
+
+  describe('#columns', () => {
+    it('should have datasource keys as columns name', () => {
+      nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+    })
+
+    it('should have datasource keys as columns name by default', () => {
+      nt.options.columns = null
+      nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+    })
+
+    it('should have datasource keys as columns name when user would force empty array', () => {
+      nt.columns = []
+      nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+    })
+
+    it('should replace _column by an empty array if user try to set columns as null', () => {
+      nt.columns = null
+      nt.columns = undefined
+      nt.options.columns.should.to.eql([])
+    })
+
+    it('should have the given array elements as columns name', () => {
+      nt.columns = ['lastname', 'age']
+      nt.columns.should.to.eql(['lastname', 'age'])
+    })
+
+    it('should have the given array elements as columns name only when element is a string', () => {
+      nt.columns = ['lastname', ['name'], 'age', 2, 'brother']
+      nt.columns.should.to.eql(['lastname', 'age', 'brother'])
+    })
+  })
+
+  describe('#reload', () => {
+    it('should call draw', () => {
+      chai.spy.on(nt, 'draw')
+      nt.reload()
+
+      nt.draw.should.have.be.called()
+    })
+
+    it('should reinit currentPage', () => {
+      nt.reload()
+      nt.options.pagination.currentPage.should.to.equal(0)
+    })
+
+    it('should reinit currentPage', () => {
+      nt.reload([
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true }
+      ])
+
+      nt.sources.should.to.eql([
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'rob', age: 81, man: true }
+      ])
+    })
+  })
+
+  describe('#objectSignature', () => {
+    it('should return an encoded ocject as string', () => {
+      nt.objectSignature({}).should.be.a('string')
     })
   })
 })
