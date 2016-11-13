@@ -190,7 +190,7 @@ export default class Nativetable {
       return this.data.sorted
     }
 
-    let tmpArray = sources.map((e, i) => {
+    let tmpArray = sources.map((e, i) => { // create temporary array that is easier to sort
       let el = e[column]
 
       if (typeof e[column] === 'string') {
@@ -220,7 +220,7 @@ export default class Nativetable {
       return 0
     })
 
-    this.data.sorted = tmpArray.map((e) => {
+    this.data.sorted = tmpArray.map((e) => { // rebuild sources in data.sorted
       return sources[e.index]
     })
 
@@ -485,14 +485,18 @@ export default class Nativetable {
       tdTag.textContent = name
 
       if (this.options.sorting.activated) {
-        const glyphList = { asc: '\u25B2', desc: '\u25BC', none: '\u25B2\u25BC' }
+        const glyphList = {
+          asc: '<span class="nt-icon nt-icon-sort-asc"></span>',
+          desc: '<span class="nt-icon nt-icon-sort-desc"></span>',
+          none: '<span class="nt-icon nt-icon-sort-none"></span>'
+        }
         let order = this.options.sorting.column === name ? this.options.sorting.order : 'none'
         let glyph = glyphList[order]
         let aTag = document.createElement('a')
 
         aTag.href = '#'
         aTag.addEventListener('click', this.onSortingClick.bind(this))
-        aTag.textContent = `${name} ${glyph}`
+        aTag.innerHTML = `${name} ${glyph}`
 
         tdTag.dataset.ntColumnName = name
         tdTag.textContent = ''
