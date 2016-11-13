@@ -18,6 +18,7 @@ export default class Nativetable {
    */
   set sources(rows) {
     this.options.reloading.filtered = true
+    this.options.reloading.sorted = true
     this.options.reloading.paginated = true
     this.data.sources = rows
   }
@@ -62,10 +63,13 @@ export default class Nativetable {
 
     if (Object.keys(filters).length === 0) {
       this.data.filtered = this.sources
+
+      this.options.reloading.filtered = false
       return this.data.filtered
     }
 
     /**
+     * Closure
      * AND logical condition
      *
      * @param {Object[]} items - array of boolean value
@@ -81,6 +85,7 @@ export default class Nativetable {
     }
 
     /**
+     * Closure
      * OR logical condition
      *
      * @param {Object[]} items - array of boolean value
@@ -96,7 +101,8 @@ export default class Nativetable {
     }
 
     /**
-     * Calcul conditionnal result for one columns
+     * Closure
+     * Calculate conditionnal result for one columns
      *
      * @param {Object} item - item to test
      * @param {function|any[]} - array of value to match or a closure for custom condition
@@ -156,6 +162,72 @@ export default class Nativetable {
   }
 
   /**
+   * Data sources sorted
+   * Getter
+   *
+   * @return {Object[]}
+   */
+  get sorted() {
+    if ( // pagination cached
+      this.data.sorted &&
+      this.data.sorted.length > 0 &&
+      this.options.reloading.sorted === false
+    ) {
+      return this.data.sorted
+    }
+
+    const sources = this.filtered
+    const { column, order = 'none', activated: isSortingActivated } = this.options.sorting
+
+    if (
+      sources.length <= 0 ||
+      isSortingActivated === false ||
+      typeof column === 'undefined'
+    ) { // no sources or no sorting
+      this.data.sorted = sources
+
+      this.options.reloading.sorted = false
+      return this.data.sorted
+    }
+
+    let tmpArray = sources.map((e, i) => { // create temporary array that is easier to sort
+      let el = e[column]
+
+      if (typeof e[column] === 'string') {
+        el = e[column].toLowerCase()
+      }
+
+      if (typeof e[column] === 'undefined') {
+        el = ''
+      }
+
+      return {
+        index: i,
+        value: el
+      }
+    })
+
+    tmpArray.sort((a, b) => {
+      if (a.value > b.value) {
+        return order === 'asc' ? 1 : -1
+      }
+
+      if (a.value < b.value) {
+        return order === 'asc' ? -1 : 1
+      }
+
+      return 0
+    })
+
+    this.data.sorted = tmpArray.map((e) => { // rebuild sources in data.sorted
+      return sources[e.index]
+    })
+
+    this.options.reloading.sorted = false
+    return this.data.sorted
+  }
+
+  /**
    * Data sources paginated
    * Getter
    *
@@ -170,11 +242,13 @@ export default class Nativetable {
       return this.data.paginated
     }
 
-    const sources = this.filtered
+    const sources = this.sorted
     const maxLength = this.options.pagination.maxLength
 
     if (sources.length <= 0) { // no sources
       this.data.paginated = []
+
+      this.options.reloading.paginated = false
       return this.data.paginated
     }
 
@@ -196,8 +270,8 @@ export default class Nativetable {
     }
     pages.push(page)
 
-    this.options.reloading.paginated = false
     this.data.paginated = pages
+    this.options.reloading.paginated = false
     return this.data.paginated
   }
 
@@ -280,12 +354,13 @@ export default class Nativetable {
    * @param {string[]}  [options.columns]              - column's nouns
    * @param {Object}    [options.pagination]           - options for pagination
    * @param {Object}    [options.pagination.maxLength] - number max of elements per page
+   * @param {boolean}   [options.sorting]              - a flag that activates sorting
    *
    * @throws {TypeError} when the id parameter is invalid
    *
    * @return {Nativetable} - an instance of Nativetable
    */
-  constructor(id, { sources = [], filters = {}, columns = [], pagination: { maxLength = -1 } = {} } = {}) {
+  constructor(id, { sources = [], filters = {}, columns = [], pagination: { maxLength = -1 } = {}, sorting = false } = {}) {
     this.options = {}
     this.data = {}
 
@@ -297,6 +372,9 @@ export default class Nativetable {
     this.options.box = document.getElementById(id)
     this.options.reloading = {}
     this.options.filters = filters
+    this.options.sorting = {
+      activated: sorting
+    }
     this.options.pagination = {
       currentPage: 0,
       maxLength
@@ -361,6 +439,12 @@ export default class Nativetable {
       tbodyTag = tableTag.children[1]
       tableTag.removeChild(tbodyTag)
 
+      if (this.options.reloading.headers) {
+        tableTag.removeChild(theadTag)
+        theadTag = this.buildTableHeader(this.columns)
+        tableTag.appendChild(theadTag)
+      }
+
       tbodyTag = this.buildTableBody(sources[currentPage], this.columns)
       tableTag.appendChild(tbodyTag)
 
@@ -398,6 +482,27 @@ export default class Nativetable {
     for (let name of columns) {
       let tdTag = document.createElement('td')
       tdTag.textContent = name
+
+      if (this.options.sorting.activated) {
+        const glyphList = {
+          asc: '<span class="nt-icon nt-icon-sort-asc"></span>',
+          desc: '<span class="nt-icon nt-icon-sort-desc"></span>',
+          none: '<span class="nt-icon nt-icon-sort-none"></span>'
+        }
+        let order = this.options.sorting.column === name ? this.options.sorting.order : 'none'
+        let glyph = glyphList[order]
+        let aTag = document.createElement('a')
+
+        aTag.href = '#'
+        aTag.addEventListener('click', this.onSortingClick.bind(this))
+        aTag.innerHTML = `${name} ${glyph}`
+
+        tdTag.dataset.ntColumnName = name
+        tdTag.textContent = ''
+
+        tdTag.appendChild(aTag)
+      }
+
       trTag.appendChild(tdTag)
     }
 
@@ -454,8 +559,10 @@ export default class Nativetable {
       let liTag = document.createElement('li')
       let aTag = document.createElement('a')
 
+      index = +index // casting to number
+
       aTag.href = '#'
-      aTag.textContent = index
+      aTag.textContent = index + 1
       aTag.addEventListener('click', this.onPaginationClick.bind(this))
 
       liTag.classList.add('nt-pagination-item')
@@ -474,7 +581,7 @@ export default class Nativetable {
   }
 
   /**
-   * Event handler. Call when user click on pagination links
+   * Event handler. Called when user click on pagination links
    *
    * @param {Event} event - the event
    */
@@ -484,6 +591,28 @@ export default class Nativetable {
     let item = event.target.parentNode
     this.options.pagination.currentPage = parseInt(item.dataset.ntPaginationIndex)
 
+    this.draw()
+  }
+
+  /**
+   * Event handler.
+   * Called when user click on header to sort corresponding column
+   *
+   * @param {Event} event - the event
+   */
+  onSortingClick(event) {
+    event.preventDefault()
+
+    let item = event.target.parentNode
+
+    if (this.options.sorting.column !== item.dataset.ntColumnName) {
+      this.options.sorting.column = item.dataset.ntColumnName
+      this.options.sorting.order = 'none'
+    }
+    this.options.sorting.order = this.options.sorting.order === 'asc' ? 'desc' : 'asc'
+
+    this.options.reloading.sorted = true
+    this.options.reloading.headers = true
     this.draw()
   }
 

@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Create and use dynamics HTML tables with native JS",
   "repository": "https://git.nathanaelcherrier.com/mindsers/nativetable.git",
-  "main": "src/scripts/build/nativetable.min.js",
+  "main": "dist/nativetable.min.js",
   "scripts": {
     "build:js": "rollup -c",
-    "build:clean": "rm -rf src/scripts/build",
+    "build:clean": "rm -rf dist",
     "build:dev": "NODE_ENV=development npm run build:clean && npm run build:js -- --sourcemap -w",
     "build:prod": "NODE_ENV=production npm run build:clean && npm run build:js",
     "build": "npm run build:prod",

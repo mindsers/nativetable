@@ -25,7 +25,7 @@ build_prod:
     - master
   artifacts:
     paths:
-    - src/script/build/nativetable.min.js
+    - dist/nativetable.min.js
   tags:
     - nodejs
 

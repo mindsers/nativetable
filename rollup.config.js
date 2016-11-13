@@ -5,7 +5,7 @@ let pkg = require('./package.json')
 let external = Object.keys(pkg.dependencies)
 
 export default {
-  entry: 'src/scripts/nativetable/nativetable.js',
+  entry: 'src/nativetable/nativetable.js',
   external,
   plugins: [
     babel({
