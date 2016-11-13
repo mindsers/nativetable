@@ -51,7 +51,14 @@ let data = [
 ]
 
 let main = () => {
-  let nt = new Nativetable('test', {
+  let ntPagination = new Nativetable('test-pagination', {
+    sources: data,
+    pagination: {
+      maxLength: 5
+    }
+  })
+
+  let ntFilter = new Nativetable('test-filtering', {
     sources: data,
     pagination: {
       maxLength: 5
@@ -70,7 +77,14 @@ let main = () => {
     }
   })
 
-  console.log(nt)
+  let ntSorting = new Nativetable('test-sorting', {
+    sources: data,
+    sorting: true
+  })
+
+  document.nt = [ntPagination, ntFilter, ntSorting]
+
+  console.log(document.nt)
 }
 
 if (document.readyState === `interactive` || document.readyState === `complete`) {
