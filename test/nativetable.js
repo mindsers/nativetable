@@ -299,4 +299,40 @@ describe('Nativetable', () => {
       nt.options.pagination.currentPage.should.equal(3)
     })
   })
+
+  describe('#onSortingClick', () => {
+    let event
+
+    beforeEach(() => {
+      event = {
+        preventDefault() {},
+        target: {
+          parentNode: {
+            dataset: {
+              ntColumnName: 'yolo'
+            }
+          }
+        }
+      }
+    })
+
+    it('should call draw', () => {
+      chai.spy.on(nt, 'draw')
+      nt.onSortingClick(event)
+
+      nt.draw.should.have.be.called()
+    })
+
+    it('should toggle order', () => {
+      nt.onSortingClick(event)
+      let lastOrder = nt.options.sorting.order
+      nt.onSortingClick(event)
+
+      if (lastOrder === 'asc') {
+        nt.options.sorting.order.should.equal('desc')
+      } else {
+        nt.options.sorting.order.should.equal('asc')
+      }
+    })
+  })
 })
