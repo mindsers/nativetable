@@ -66,6 +66,7 @@ export default class Nativetable {
     }
 
     /**
+     * Closure
      * AND logical condition
      *
      * @param {Object[]} items - array of boolean value
@@ -81,6 +82,7 @@ export default class Nativetable {
     }
 
     /**
+     * Closure
      * OR logical condition
      *
      * @param {Object[]} items - array of boolean value
@@ -96,7 +98,8 @@ export default class Nativetable {
     }
 
     /**
-     * Calcul conditionnal result for one columns
+     * Closure
+     * Calculate conditionnal result for one columns
      *
      * @param {Object} item - item to test
      * @param {function|any[]} - array of value to match or a closure for custom condition
@@ -280,12 +283,13 @@ export default class Nativetable {
    * @param {string[]}  [options.columns]              - column's nouns
    * @param {Object}    [options.pagination]           - options for pagination
    * @param {Object}    [options.pagination.maxLength] - number max of elements per page
+   * @param {boolean}   [options.sorting]              - a flag that activates sorting
    *
    * @throws {TypeError} when the id parameter is invalid
    *
    * @return {Nativetable} - an instance of Nativetable
    */
-  constructor(id, { sources = [], filters = {}, columns = [], pagination: { maxLength = -1 } = {} } = {}) {
+  constructor(id, { sources = [], filters = {}, columns = [], pagination: { maxLength = -1 } = {}, sorting = false } = {}) {
     this.options = {}
     this.data = {}
 
@@ -297,6 +301,10 @@ export default class Nativetable {
     this.options.box = document.getElementById(id)
     this.options.reloading = {}
     this.options.filters = filters
+    this.options.sorting = {
+      activated: sorting,
+      columns: {}
+    }
     this.options.pagination = {
       currentPage: 0,
       maxLength
@@ -361,6 +369,12 @@ export default class Nativetable {
       tbodyTag = tableTag.children[1]
       tableTag.removeChild(tbodyTag)
 
+      if (this.options.reloading.headers) {
+        tableTag.removeChild(theadTag)
+        theadTag = this.buildTableHeader(this.columns)
+        tableTag.appendChild(theadTag)
+      }
+
       tbodyTag = this.buildTableBody(sources[currentPage], this.columns)
       tableTag.appendChild(tbodyTag)
 
@@ -398,6 +412,23 @@ export default class Nativetable {
     for (let name of columns) {
       let tdTag = document.createElement('td')
       tdTag.textContent = name
+
+      if (this.options.sorting.activated) {
+        const glyphs = { asc: '\u25B2', desc: '\u25BC', none: '\u25B2\u25BC' }
+        let { order = 'none' } = this.options.sorting.columns[name] || {}
+        let glyph = glyphs[order]
+        let aTag = document.createElement('a')
+
+        aTag.href = '#'
+        aTag.addEventListener('click', this.onSortingClick.bind(this))
+        aTag.dataset.columnName = name
+
+        aTag.textContent = `${name} ${glyph}`
+        tdTag.textContent = ''
+
+        tdTag.appendChild(aTag)
+      }
+
       trTag.appendChild(tdTag)
     }
 
@@ -474,7 +505,7 @@ export default class Nativetable {
   }
 
   /**
-   * Event handler. Call when user click on pagination links
+   * Event handler. Called when user click on pagination links
    *
    * @param {Event} event - the event
    */
@@ -484,6 +515,29 @@ export default class Nativetable {
     let item = event.target.parentNode
     this.options.pagination.currentPage = parseInt(item.dataset.ntPaginationIndex)
 
+    this.draw()
+  }
+
+  /**
+   * Event handler.
+   * Called when user click on header to sort corresponding column
+   *
+   * @param {Event} event - the event
+   */
+  onSortingClick(event) {
+    event.preventDefault()
+
+    let item = event.target
+
+    if (!(item.dataset.columnName in this.options.sorting.columns)) {
+      this.options.sorting.columns = {}
+      this.options.sorting.columns[item.dataset.columnName] = {}
+    }
+
+    let { order = 'none' } = this.options.sorting.columns[item.dataset.columnName]
+    this.options.sorting.columns[item.dataset.columnName].order = order === 'asc' ? 'desc' : 'asc'
+
+    this.options.reloading.headers = true
     this.draw()
   }
 
