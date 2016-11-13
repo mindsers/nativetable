@@ -1,9 +1,0 @@
-td {
-    width: 100px;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
-thead td {
-    background-color: rgba(0, 0, 0, 0.5);
-}

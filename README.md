@@ -1,6 +1,80 @@
 # Nativetable
 
+[![build status][badge_build_status_image]][badge_build_status_link]
+[![standardjs style][badge_js_code_style_image]][badge_js_code_style_link]
+[![coverage report][badge_coverage_report_image]][badge_coverage_report_link]
+
 Nativetable is a simple native es6 module to create and work with dynamics HTML tables.
+
+Nativetable allow you to sort, filter and paginate your data in an HTML table. No useless features, only one line of code is required to load your data.
+
+## Installation
+
+You can build your own Nativetable with this project.
+
+Clone the project :
+```bash
+git clone https://git.nathanaelcherrier.com/mindsers/nativetable.git
+cd nativetable
+```
+
+Install packages and build sources :
+```bash
+npm install
+npm run build
+```
+
+Nativetable library is ready to be import on your project : `src/scripts/build/nativetable.min.js`
+
+## Usage
+
+Add a script tag on your page to call Nativatable.
+```html
+<script src="nativetable.min.js"></script>
+```
+
+### Sample code
+
+```js
+// Show all data in table.
+let ntable = new Nativetable('tableid', { sources });
+```
+
+```js
+// Show table with more options
+let ntable = new Nativetable('tableid', {
+    sources: data,
+    sorting: true,
+    pagination: {
+        maxLength: 5
+    },
+    columns: [
+        "id",
+        "name",
+        "age"
+    ],
+    filters: {
+      $and: {
+        name: ['julie', 'sarah'],
+        age: (age) => {
+          return age >= 29 && age <= 39
+        }
+      },
+      $or: {
+        man: [false],
+        brothers: [1]
+      }
+    }
+});
+```
+
+## Contribution
+
+To contribute or report issue, please go to [git.nathanaelcherrier.com][project]
+
+## Documentation
+
+A documention is available on [git.nathanaelcherrier.com][wiki].
 
 ## License
 
@@ -27,3 +101,13 @@ This project is under the MIT License. (see LICENSE file in the root directory)
 > LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 > SOFTWARE.
+
+[wiki]: https://git.nathanaelcherrier.com/mindsers/nativetable/wikis/home
+[project]: https://git.nathanaelcherrier.com/mindsers/nativetable
+
+[badge_build_status_image]: https://git.nathanaelcherrier.com/mindsers/nativetable/badges/master/build.svg
+[badge_build_status_link]: https://git.nathanaelcherrier.com/mindsers/nativetable/commits/master
+[badge_js_code_style_image]: https://img.shields.io/badge/code%20style-standard-yellow.svg
+[badge_js_code_style_link]: http://standardjs.com
+[badge_coverage_report_image]: https://git.nathanaelcherrier.com/mindsers/nativetable/badges/master/coverage.svg
+[badge_coverage_report_link]: https://git.nathanaelcherrier.com/mindsers/nativetable/commits/master

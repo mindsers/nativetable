@@ -1,3 +1,5 @@
+/* global Nativetable */
+
 'use strict'
 
 let data = [
@@ -8,9 +10,9 @@ let data = [
     man: true
   },
   {
-    id: 20,
+    id: 43,
     name: 'sarah',
-    age: 29,
+    age: 12,
     man: false
   },
   {
@@ -21,7 +23,7 @@ let data = [
     sisters: 3
   },
   {
-    id: 6,
+    id: 8,
     name: 'julie',
     age: 30,
     man: false
@@ -49,9 +51,40 @@ let data = [
 ]
 
 let main = () => {
-  let table = new Nativetable('tabletest', {
-    datasource: data
+  let ntPagination = new Nativetable('test-pagination', {
+    sources: data,
+    pagination: {
+      maxLength: 5
+    }
   })
+
+  let ntFilter = new Nativetable('test-filtering', {
+    sources: data,
+    pagination: {
+      maxLength: 5
+    },
+    filters: {
+      $and: {
+        name: ['julie', 'sarah'],
+        age: (age) => {
+          return age >= 29 && age <= 39
+        }
+      },
+      $or: {
+        man: [false],
+        brothers: [1]
+      }
+    }
+  })
+
+  let ntSorting = new Nativetable('test-sorting', {
+    sources: data,
+    sorting: true
+  })
+
+  document.nt = [ntPagination, ntFilter, ntSorting]
+
+  console.log(document.nt)
 }
 
 if (document.readyState === `interactive` || document.readyState === `complete`) {

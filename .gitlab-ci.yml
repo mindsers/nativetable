@@ -1,0 +1,40 @@
+image: node:latest
+
+stages:
+  - test
+  - build
+  - mirror
+
+before_script:
+  - npm install
+
+unit_test:
+  stage: test
+  script:
+    - npm test
+  except:
+    - master
+  tags:
+    - nodejs
+
+build_prod:
+  stage: build
+  script:
+    - npm run build
+  only:
+    - master
+  artifacts:
+    paths:
+    - dist/nativetable.min.js
+  tags:
+    - nodejs
+
+update_github:
+  stage: mirror
+  script:
+    - git remote add github git@github.com:Mindsers/nativetable.git
+    - git push github master
+  only:
+    - master
+  tags:
+    - nodejs
