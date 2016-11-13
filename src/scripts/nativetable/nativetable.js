@@ -560,8 +560,10 @@ export default class Nativetable {
       let liTag = document.createElement('li')
       let aTag = document.createElement('a')
 
+      index = +index // casting to number
+
       aTag.href = '#'
-      aTag.textContent = index
+      aTag.textContent = index + 1
       aTag.addEventListener('click', this.onPaginationClick.bind(this))
 
       liTag.classList.add('nt-pagination-item')
