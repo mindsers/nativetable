@@ -18,6 +18,7 @@ export default class Nativetable {
    */
   set sources(rows) {
     this.options.reloading.filtered = true
+    this.options.reloading.sorted = true
     this.options.reloading.paginated = true
     this.data.sources = rows
   }
@@ -62,6 +63,8 @@ export default class Nativetable {
 
     if (Object.keys(filters).length === 0) {
       this.data.filtered = this.sources
+
+      this.options.reloading.filtered = false
       return this.data.filtered
     }
 
@@ -159,6 +162,73 @@ export default class Nativetable {
   }
 
   /**
+   * Data sources sorted
+   * Getter
+   *
+   * @return {Object[]}
+   */
+  get sorted() {
+    if ( // pagination cached
+      this.data.sorted &&
+      this.data.sorted.length > 0 &&
+      this.options.reloading.sorted === false
+    ) {
+      return this.data.sorted
+    }
+
+    const sources = this.filtered
+    const { column, order = 'none', activated: isSortingActivated } = this.options.sorting
+
+    if (
+      sources.length <= 0 ||
+      isSortingActivated === false ||
+      typeof column === 'undefined'
+    ) { // no sources or no sorting
+      this.data.sorted = sources
+
+      this.options.reloading.sorted = false
+      return this.data.sorted
+    }
+
+    let tmpArray = sources.map((e, i) => {
+      let el = e[column]
+
+      if (typeof e[column] === 'string') {
+        el = e[column].toLowerCase()
+      }
+
+      if (typeof e[column] === 'undefined') {
+        el = ''
+      }
+
+      console.log(el)
+      return {
+        index: i,
+        value: el
+      }
+    })
+
+    tmpArray.sort((a, b) => {
+      if (a.value > b.value) {
+        return order === 'asc' ? 1 : -1
+      }
+
+      if (a.value < b.value) {
+        return order === 'asc' ? -1 : 1
+      }
+
+      return 0
+    })
+
+    this.data.sorted = tmpArray.map((e) => {
+      return sources[e.index]
+    })
+
+    this.options.reloading.sorted = false
+    return this.data.sorted
+  }
+
+  /**
    * Data sources paginated
    * Getter
    *
@@ -173,11 +243,13 @@ export default class Nativetable {
       return this.data.paginated
     }
 
-    const sources = this.filtered
+    const sources = this.sorted
     const maxLength = this.options.pagination.maxLength
 
     if (sources.length <= 0) { // no sources
       this.data.paginated = []
+
+      this.options.reloading.paginated = false
       return this.data.paginated
     }
 
@@ -199,8 +271,8 @@ export default class Nativetable {
     }
     pages.push(page)
 
-    this.options.reloading.paginated = false
     this.data.paginated = pages
+    this.options.reloading.paginated = false
     return this.data.paginated
   }
 
@@ -534,6 +606,7 @@ export default class Nativetable {
     }
     this.options.sorting.order = this.options.sorting.order === 'asc' ? 'desc' : 'asc'
 
+    this.options.reloading.sorted = true
     this.options.reloading.headers = true
     this.draw()
   }
