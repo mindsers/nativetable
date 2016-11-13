@@ -173,7 +173,6 @@ describe('Nativetable', () => {
   describe('#paginated', () => {
     beforeEach(() => {
       nt.options.pagination.maxLength = 10
-      nt.data.reloading = true
       nt.sources = [
         { id: 12, name: 'bob', lastname: 'ronb', age: 81, man: true },
         { id: 12, name: 'boab', lastname: 'rob', age: 81, man: true },
@@ -251,6 +250,89 @@ describe('Nativetable', () => {
       nt.onPaginationClick(event)
 
       nt.options.pagination.currentPage.should.equal(3)
+    })
+  })
+
+  describe('#sorted', () => {
+    beforeEach(() => {
+      nt.options.reloading.sorted = true
+      nt.options.sorting = {
+        activated: true,
+        column: 'name',
+        order: 'asc'
+      }
+      nt.sources = [
+        { id: 12, name: 'bob', lastname: 'ronb', age: 81, man: true },
+        { id: 12, name: 'boab', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bofgb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'botb', lastname: 'riob', age: 81, man: true },
+        { id: 12, name: 'bosb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'boxb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bodb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bokb', lastname: 'rokb', age: 81, man: true },
+        { id: 12, name: 'bjob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bpob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'boub', lastname: 'rbob', age: 81, man: true },
+        { id: 12, name: 'bobg', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bodjb', lastname: 'rfob', age: 81, man: true },
+        { id: 12, name: 'bovb', lastname: 'rorb', age: 81, man: true }
+      ]
+    })
+
+    it('should return filtered when filtered is empty', () => {
+      nt.sources = []
+      nt.sorted.should.be.deep.equal(nt.filtered)
+    })
+
+    it('should return filtered when sorted is desallowed', () => {
+      nt.options.sorting.activated = false
+      nt.sorted.should.be.deep.equal(nt.filtered)
+    })
+
+    it('should return filtered when no columns are sorted', () => {
+      delete nt.options.sorting.column
+      nt.sorted.should.be.deep.equal(nt.filtered)
+    })
+
+    it('should return ASC sorted sources', () => {
+      let expected = [
+        { id: 12, name: 'bjob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'boab', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'ronb', age: 81, man: true },
+        { id: 12, name: 'bobg', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bodb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bodjb', lastname: 'rfob', age: 81, man: true },
+        { id: 12, name: 'bofgb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bokb', lastname: 'rokb', age: 81, man: true },
+        { id: 12, name: 'bosb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'botb', lastname: 'riob', age: 81, man: true },
+        { id: 12, name: 'boub', lastname: 'rbob', age: 81, man: true },
+        { id: 12, name: 'bovb', lastname: 'rorb', age: 81, man: true },
+        { id: 12, name: 'boxb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bpob', lastname: 'rob', age: 81, man: true }
+      ]
+      nt.sorted.should.be.deep.equal(expected)
+    })
+
+    it('should return DESC sorted sources', () => {
+      let expected = [
+        { id: 12, name: 'bpob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'boxb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bovb', lastname: 'rorb', age: 81, man: true },
+        { id: 12, name: 'boub', lastname: 'rbob', age: 81, man: true },
+        { id: 12, name: 'botb', lastname: 'riob', age: 81, man: true },
+        { id: 12, name: 'bosb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bokb', lastname: 'rokb', age: 81, man: true },
+        { id: 12, name: 'bofgb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bodjb', lastname: 'rfob', age: 81, man: true },
+        { id: 12, name: 'bodb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bobg', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'ronb', age: 81, man: true },
+        { id: 12, name: 'boab', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bjob', lastname: 'rob', age: 81, man: true }
+      ]
+      nt.options.sorting.order = 'desc'
+      nt.sorted.should.be.deep.equal(expected)
     })
   })
 

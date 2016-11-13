@@ -201,7 +201,6 @@ export default class Nativetable {
         el = ''
       }
 
-      console.log(el)
       return {
         index: i,
         value: el
