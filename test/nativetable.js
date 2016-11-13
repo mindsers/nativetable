@@ -2,7 +2,7 @@
 
 import chai from 'chai'
 import spies from 'chai-spies'
-import Nativetable from '../src/scripts/nativetable/nativetable'
+import Nativetable from '../src/nativetable/nativetable'
 
 describe('Nativetable', () => {
   let nt
