@@ -98,11 +98,11 @@ This project is under the MIT License. (see LICENSE file in the root directory)
 [wiki]: https://git.nathanaelcherrier.com/mindsers/nativetable/wikis/home
 [project]: https://git.nathanaelcherrier.com/mindsers/nativetable
 
-[badge_build_status_image]: https://travis-ci.org/Mindsers/nativetable.svg
+[badge_build_status_image]: https://img.shields.io/travis/Mindsers/nativetable/master.svg
 [badge_build_status_link]: https://travis-ci.org/Mindsers/nativetable
 [badge_js_code_style_image]: https://img.shields.io/badge/code%20style-standard-yellow.svg
 [badge_js_code_style_link]: http://standardjs.com
 [badge_license_image]: https://img.shields.io/badge/license-MIT-blue.svg
 [badge_license_link]: https://github.com/Mindsers/nativetable/blob/master/LICENSE
-[badge_coverage_report_image]: https://coveralls.io/repos/github/Mindsers/nativetable/badge.svg
+[badge_coverage_report_image]: https://img.shields.io/coveralls/Mindsers/nativetable/master.svg
 [badge_coverage_report_link]: https://coveralls.io/github/Mindsers/nativetable
