@@ -68,14 +68,6 @@ let ntable = new Nativetable('tableid', {
 });
 ```
 
-## Contribution
-
-To contribute or report issue, please go to [git.nathanaelcherrier.com][project]
-
-## Documentation
-
-A documention is available on [git.nathanaelcherrier.com][wiki].
-
 ## License
 
 This project is under the MIT License. (see LICENSE file in the root directory)
