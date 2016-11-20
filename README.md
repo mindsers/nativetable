@@ -2,7 +2,7 @@
 
 [![build status][badge_build_status_image]][badge_build_status_link]
 [![standardjs style][badge_js_code_style_image]][badge_js_code_style_link]
-[![coverage report][badge_coverage_report_image]][badge_coverage_report_link]
+[![coverage status][badge_coverage_report_image]][badge_coverage_report_link]
 [![MIT license][badge_license_image]][badge_license_link]
 
 Nativetable is a simple native es6 module to create and work with dynamics HTML tables.
@@ -99,10 +99,10 @@ This project is under the MIT License. (see LICENSE file in the root directory)
 [project]: https://git.nathanaelcherrier.com/mindsers/nativetable
 
 [badge_build_status_image]: https://travis-ci.org/Mindsers/nativetable.svg
-[badge_license_image]: https://img.shields.io/badge/license-MIT-blue.svg
 [badge_build_status_link]: https://travis-ci.org/Mindsers/nativetable
 [badge_js_code_style_image]: https://img.shields.io/badge/code%20style-standard-yellow.svg
 [badge_js_code_style_link]: http://standardjs.com
+[badge_license_image]: https://img.shields.io/badge/license-MIT-blue.svg
 [badge_license_link]: https://github.com/Mindsers/nativetable/blob/master/LICENSE
-[badge_coverage_report_image]: https://git.nathanaelcherrier.com/mindsers/nativetable/badges/master/coverage.svg
-[badge_coverage_report_link]: https://git.nathanaelcherrier.com/mindsers/nativetable/commits/master
+[badge_coverage_report_image]: https://coveralls.io/repos/github/Mindsers/nativetable/badge.svg
+[badge_coverage_report_link]: https://coveralls.io/github/Mindsers/nativetable
