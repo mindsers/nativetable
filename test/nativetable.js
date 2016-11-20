@@ -135,6 +135,8 @@ describe('Nativetable', () => {
             }
           }
         }
+
+        nt.filtered
       }
 
       test.should.not.throw()
