@@ -10,10 +10,11 @@
     "build:dev": "NODE_ENV=development npm run build:clean && npm run build:js -- --sourcemap -w",
     "build:prod": "NODE_ENV=production npm run build:clean && npm run build:js",
     "build": "npm run build:prod",
-    "test:coverage": "NODE_ENV=test nyc mocha && nyc report --reporter=text-lcov | coveralls",
+    "test:coveralls": "npm run test:coverage && nyc report --reporter=text-lcov | coveralls",
+    "test:coverage": "NODE_ENV=test nyc mocha",
     "test:unit": "mocha -r babel-core/register",
     "test:clean": "rm -rf coverage",
-    "test": "npm run test:clean && npm run test:coverage"
+    "test": "npm run test:clean && npm run test:coveralls"
   },
   "keywords": [
     "table",

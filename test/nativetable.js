@@ -135,6 +135,8 @@ describe('Nativetable', () => {
             }
           }
         }
+
+        nt.filtered
       }
 
       test.should.not.throw()
@@ -292,6 +294,43 @@ describe('Nativetable', () => {
     it('should return filtered when no columns are sorted', () => {
       delete nt.options.sorting.column
       nt.sorted.should.be.deep.equal(nt.filtered)
+    })
+
+    it('should return last sorting when options.reloading.sorted is false', () => {
+      let expected = [
+        { id: 12, name: 'bjob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'boab', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'ronb', age: 81, man: true },
+        { id: 12, name: 'bobg', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bodb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bodjb', lastname: 'rfob', age: 81, man: true },
+        { id: 12, name: 'bofgb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bokb', lastname: 'rokb', age: 81, man: true },
+        { id: 12, name: 'bosb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'botb', lastname: 'riob', age: 81, man: true },
+        { id: 12, name: 'boub', lastname: 'rbob', age: 81, man: true },
+        { id: 12, name: 'bovb', lastname: 'rorb', age: 81, man: true },
+        { id: 12, name: 'boxb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bpob', lastname: 'rob', age: 81, man: true }
+      ]
+
+      let falseFiltered = [
+        { id: 12, name: 'bjob', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'boab', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bob', lastname: 'ronb', age: 81, man: true },
+        { id: 12, name: 'bobg', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bodb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'botb', lastname: 'riob', age: 81, man: true },
+        { id: 12, name: 'boub', lastname: 'rbob', age: 81, man: true },
+        { id: 12, name: 'bovb', lastname: 'rorb', age: 81, man: true },
+        { id: 12, name: 'boxb', lastname: 'rob', age: 81, man: true },
+        { id: 12, name: 'bpob', lastname: 'rob', age: 81, man: true }
+      ]
+
+      nt.sorted // first call / adding relsult to cache
+      nt.sources = falseFiltered
+      nt.options.reloading.sorted = false
+      nt.sorted.should.be.deep.equal(expected)
     })
 
     it('should return ASC sorted sources', () => {
