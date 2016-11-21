@@ -306,7 +306,7 @@ export default class Nativetable {
   /**
    * Colum's nouns setter
    *
-   * @param {string[]} value - colum's nouns
+   * @param {string[]|Object[]} value - colum's nouns
    */
   set columns(value) {
     this.options.columns = []
@@ -315,10 +315,21 @@ export default class Nativetable {
       return
     }
 
-    for (let noun of value) {
-      if (typeof noun === 'string') {
-        this.options.columns.push(noun)
+    for (let columns of value) {
+      let { key, title } = columns
+
+      if (typeof columns === 'string') {
+        key = title = columns
       }
+
+      if (typeof key === 'undefined' || typeof title === 'undefined') {
+        continue
+      }
+
+      this.options.columns.push({
+        key,
+        title
+      })
     }
   }
 
