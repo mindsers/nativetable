@@ -548,9 +548,9 @@ export default class Nativetable {
       trTag.classList.add('nt-row')
       trTag.dataset.ntObject = this.objectSignature(row)
 
-      for (let name of columns) {
+      for (let { key } of columns) {
         let tdTag = document.createElement('td')
-        tdTag.textContent = typeof row[name] === 'undefined' ? '' : row[name]
+        tdTag.textContent = typeof row[key] === 'undefined' ? '' : row[key]
         trTag.appendChild(tdTag)
       }
 
