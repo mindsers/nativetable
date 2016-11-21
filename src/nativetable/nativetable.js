@@ -336,6 +336,8 @@ export default class Nativetable {
         title
       })
     }
+
+    this.options.reloading.headers = true
   }
 
   /**
