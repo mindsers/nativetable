@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>NativeTable test</title>
+        <link rel="stylesheet" href="styles/main.css"/>
+    </head>
+    <body>
+        <h1>nativetable.js - demo</h1>
+        <p>
+          <em>nativetable</em> is a little library ready to help you to easily display your data in HTML table.
+        </p>
+        <p>
+          The samples below show how to use <em>nativetable</em> to filter, sort and paginate data.
+        </p>
+        <h2>Pagination</h2>
+        <p>
+          Sample code for pagination
+        </p>
+        <pre>
+          let nt = new Nativetable('nativetable', {
+            sources: data,
+            pagination: {
+              maxLength: 5
+            }
+          })
+        </pre>
+        <div id="test-pagination"></div>
+        <h2>Filtering</h2>
+        <p>
+          Sample code for filtering data
+        </p>
+        <pre>
+          let nt = new Nativetable('nativetable', {
+            sources: data,
+            pagination: {
+              maxLength: 5
+            },
+            filters: {
+              $and: {
+                name: ['julie', 'sarah'],
+                age: (age) => {
+                  return age >= 29 && age <= 39
+                }
+              },
+              $or: {
+                man: [false],
+                brothers: [1]
+              }
+            }
+          })
+        </pre>
+        <div id="test-filtering"></div>
+        <h2>Sorting</h2>
+        <p>
+          Sample code for sortable table
+        </p>
+        <pre>
+          let nt = new Nativetable('nativetable', {
+            sources: data,
+            sorting: true
+          })
+        </pre>
+        <div id="test-sorting"></div>
+
+        <footer>
+          <p>
+            Copyright &copy;2016 Nathanaël CHERRIER.
+          </p>
+          <p>
+            This project is an open-source project under MIT license. Feel free to <a href="https://github.com/Mindsers/nativetable">use and contribute</a>.
+          </p>
+        </footer>
+        <script src="scripts/nativetable.min.js"></script>
+        <script src="scripts/main.js"></script>
+    </body>
+</html>
