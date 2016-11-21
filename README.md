@@ -69,6 +69,10 @@ let ntable = new Nativetable('tableid', {
 });
 ```
 
+## Contribution
+
+To contribute to this repo please follow the [contribution guide](https://github.com/Mindsers/nativetable/blob/master/CONTRIBUTING.md).
+
 ## License
 
 This project is under the MIT License. (see LICENSE file in the root directory)
