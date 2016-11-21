@@ -278,7 +278,7 @@ export default class Nativetable {
   /**
    * Colum's nouns getter
    *
-   * @return {string[]} - colum's nouns
+   * @return {Object[]} - column
    */
   get columns() {
     let headers = this.options.columns || []
@@ -299,14 +299,19 @@ export default class Nativetable {
       }
     })
 
-    this.options.columns = headers
+    this.options.columns = headers.map((el) => {
+      return {
+        key: el,
+        title: el
+      }
+    })
     return this.options.columns
   }
 
   /**
    * Colum's nouns setter
    *
-   * @param {string[]|Object[]} value - colum's nouns
+   * @param {string[]|Object[]} value - column
    */
   set columns(value) {
     this.options.columns = []
