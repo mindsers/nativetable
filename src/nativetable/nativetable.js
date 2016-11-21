@@ -483,7 +483,7 @@ export default class Nativetable {
   /**
    * Builder for table header
    *
-   * @param {string[]} cols - Array of columns
+   * @param {Object[]} cols - Array of columns
    *
    * @return {HTMLElement} A thead HTML tag
    */
@@ -495,9 +495,10 @@ export default class Nativetable {
 
     theadTag.classList.add('nt-head')
 
-    for (let name of columns) {
+    for (let { key, title } of columns) {
       let tdTag = document.createElement('td')
-      tdTag.textContent = name
+      tdTag.textContent = title
+      tdTag.dataset.ntColumnName = key
 
       if (this.options.sorting.activated) {
         const glyphList = {
@@ -505,17 +506,15 @@ export default class Nativetable {
           desc: '<span class="nt-icon nt-icon-sort-desc"></span>',
           none: '<span class="nt-icon nt-icon-sort-none"></span>'
         }
-        let order = this.options.sorting.column === name ? this.options.sorting.order : 'none'
+        let order = this.options.sorting.column === key ? this.options.sorting.order : 'none'
         let glyph = glyphList[order]
         let aTag = document.createElement('a')
 
         aTag.href = '#'
         aTag.addEventListener('click', this.onSortingClick.bind(this))
-        aTag.innerHTML = `${name} ${glyph}`
+        aTag.innerHTML = `${title} ${glyph}`
 
-        tdTag.dataset.ntColumnName = name
         tdTag.textContent = ''
-
         tdTag.appendChild(aTag)
       }
 
