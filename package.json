@@ -2,7 +2,7 @@
   "name": "nativetable",
   "version": "1.0.0",
   "description": "Create and use dynamics HTML tables with native JS",
-  "repository": "https://git.nathanaelcherrier.com/mindsers/nativetable.git",
+  "repository": "https://github.com/Mindsers/nativetable",
   "main": "dist/nativetable.min.js",
   "scripts": {
     "build:js": "rollup -c",

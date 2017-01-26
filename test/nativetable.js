@@ -412,18 +412,27 @@ describe('Nativetable', () => {
   })
 
   describe('#columns', () => {
+    let expected = [
+      { key: 'id', title: 'id' },
+      { key: 'name', title: 'name' },
+      { key: 'lastname', title: 'lastname' },
+      { key: 'age', title: 'age' },
+      { key: 'man', title: 'man' },
+      { key: 'brother', title: 'brother' }
+    ]
+
     it('should have datasource keys as columns name', () => {
-      nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+      nt.columns.should.to.eql(expected)
     })
 
     it('should have datasource keys as columns name by default', () => {
       nt.options.columns = null
-      nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+      nt.columns.should.to.eql(expected)
     })
 
     it('should have datasource keys as columns name when user would force empty array', () => {
       nt.columns = []
-      nt.columns.should.to.eql(['id', 'name', 'lastname', 'age', 'man', 'brother'])
+      nt.columns.should.to.eql(expected)
     })
 
     it('should replace _column by an empty array if user try to set columns as null', () => {
@@ -434,12 +443,17 @@ describe('Nativetable', () => {
 
     it('should have the given array elements as columns name', () => {
       nt.columns = ['lastname', 'age']
-      nt.columns.should.to.eql(['lastname', 'age'])
+      nt.columns.should.to.eql([{ key: 'lastname', title: 'lastname' }, { key: 'age', title: 'age' }])
+    })
+
+    it('should have the given array object elements as columns name', () => {
+      nt.columns = ['lastname', { key: 'name', title: 'Le nom' }]
+      nt.columns.should.to.eql([{ key: 'lastname', title: 'lastname' }, { key: 'name', title: 'Le nom' }])
     })
 
     it('should have the given array elements as columns name only when element is a string', () => {
       nt.columns = ['lastname', ['name'], 'age', 2, 'brother']
-      nt.columns.should.to.eql(['lastname', 'age', 'brother'])
+      nt.columns.should.to.eql([{ key: 'lastname', title: 'lastname' }, { key: 'age', title: 'age' }, { key: 'brother', title: 'brother' }])
     })
   })
 
