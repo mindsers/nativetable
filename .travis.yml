@@ -9,7 +9,7 @@ script:
   - npm run test:lint
   - npm test
   
-before_deploy
+before_deploy:
   - npm run build
 
 deploy:
