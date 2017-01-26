@@ -9,6 +9,8 @@ Nativetable is a simple native es6 module to create and work with dynamics HTML 
 
 Nativetable allow you to sort, filter and paginate your data in an HTML table. No useless features, only one line of code is required to load your data.
 
+Check the [demo](https://mindsers.github.io/nativetable/) page.
+
 ## Installation
 
 You can build your own Nativetable with this project.
