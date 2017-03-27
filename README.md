@@ -14,6 +14,17 @@ Check the [demo](https://mindsers.github.io/nativetable/) page.
 
 ## Installation
 
+### Package manager installation
+
+Nativetable is available as a client side npm dependency. To install Nativetable with npm :
+
+```bash
+npm install nativetable --save
+```
+
+Nativetable library is ready to be import on your project : `./node_modules/nativetable/dist/nativetable.min.js`
+
+### Manual installation
 You can build your own Nativetable with this project.
 
 Clone the project :
@@ -28,7 +39,7 @@ npm install
 npm run build
 ```
 
-Nativetable library is ready to be import on your project : `src/scripts/build/nativetable.min.js`
+Nativetable library is ready to be import on your project : `./dist/nativetable.min.js`
 
 ## Usage
 
