@@ -1,0 +1,12 @@
+node_modules
+src
+rollup.config.js
+test
+.babelrc
+scripts
+styles
+.DS_Store
+.eslintrc.json
+.istanbul.yml
+.travis.yml
+.npmignore
