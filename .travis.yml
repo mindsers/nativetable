@@ -1,10 +1,8 @@
 language: node_js
 node_js:
-  - "6"
-
+  - '6'
 install:
   - npm install
-
 script:
   - npm run test:lint
   - npm test
@@ -13,10 +11,18 @@ before_deploy:
   - npm run build
 
 deploy:
-  provider: releases
-  api_key: "GITHUB OAUTH TOKEN"
-  file: "FILE TO UPLOAD"
-  skip_cleanup: true
-  on:
-    branch: master 
-    tags: true
+  - provider: releases
+    api_key: "GITHUB OAUTH TOKEN"
+    file: "FILE TO UPLOAD"
+    skip_cleanup: true
+    on:
+      branch: master 
+      tags: true
+  - provider: npm
+    email: dev@nathanaelcherrier.com
+    api_key:
+      secure: 1wWRD9A9U2WiU9NRDnK+0y2Cek/jKk98DP/ClUh9w4cvmAECX3VnjDOdViLkJSKygU6JnO3WnO9cRinOvnbloKSj9/Pkg9PiivWjdhfpkGh4gNEImQaIVo05R4WJsflOnIPk3wDOO4BYVxp2qtfLu4QRoBzeXbU6rO2mFPUq576hXw9PRopHUMbjPkk9AsyuyU0P8SgfbnuHC0+NcyKTplUvr5/vq/dX8MUWCt/DVXApQUKHicnBLkN+QrO2i84ONFNgo5k+b3T6byapwMMeJbrJhtTkenTSJNn+aKOMwWSnRLuSnxLu2DjnEPZAB1SNwJCE052baeh7dvvqaIXQ40cvDKNo289Yj4tNIwOUtUlzrFK8IcXAfZAKhHgHBhKX06xZPySxeeTMk4+CiNZlCU0mxK1ELyhr8TjBKgP7MS0ovzmkJA83QhnedQOzxrMK2evWWBhq9rTA4GC8GruR33H/q3aSLEP4qRkFUQnS7KHSyEb3ggYpo8azNX2Fv90Yp+0TkFCqxfuh+5NcFV7TcZVKuJATgEbLOxp18Bi+1QRfWvAPxiiMD6u9+jA6ti4VX2ZlxKqRSKGD/XgQfrya1bugvk+ueRzYw3Mrkw04MtP3AD2QX3o60C0V3CuhL4vG7kUhZF3UUd6x1aoT3Zk0kQODcifMUdkWcU8cpKeGL8M=
+    on:
+      branch: master
+      tags: true
+
