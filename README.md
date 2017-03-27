@@ -4,7 +4,7 @@
 [![standardjs style][badge_js_code_style_image]][badge_js_code_style_link]
 [![coverage status][badge_coverage_report_image]][badge_coverage_report_link]
 [![MIT license][badge_license_image]][badge_license_link]
-[![Join the chat at https://gitter.im/nativetable/Lobby][badge_gitter_image]][badge_gitter_link]
+[![Join the chat at https://gitter.im/mindsers/nativetable][badge_gitter_image]][badge_gitter_link]
 
 Nativetable is a simple native es6 module to create and work with dynamics HTML tables.
 
