@@ -4,7 +4,7 @@
 [![standardjs style][badge_js_code_style_image]][badge_js_code_style_link]
 [![coverage status][badge_coverage_report_image]][badge_coverage_report_link]
 [![MIT license][badge_license_image]][badge_license_link]
-[![Join the chat at https://gitter.im/nativetable/Lobby][badge_gitter_image]][badge_gitter_link]
+[![Join the chat at https://gitter.im/mindsers/nativetable][badge_gitter_image]][badge_gitter_link]
 
 Nativetable is a simple native es6 module to create and work with dynamics HTML tables.
 
@@ -14,6 +14,17 @@ Check the [demo](https://mindsers.github.io/nativetable/) page.
 
 ## Installation
 
+### Package manager installation
+
+Nativetable is available as a client side npm dependency. To install Nativetable with npm :
+
+```bash
+npm install nativetable --save
+```
+
+Nativetable library is ready to be import on your project : `./node_modules/nativetable/dist/nativetable.min.js`
+
+### Manual installation
 You can build your own Nativetable with this project.
 
 Clone the project :
@@ -28,7 +39,7 @@ npm install
 npm run build
 ```
 
-Nativetable library is ready to be import on your project : `src/scripts/build/nativetable.min.js`
+Nativetable library is ready to be import on your project : `./dist/nativetable.min.js`
 
 ## Usage
 
@@ -113,5 +124,5 @@ This project is under the MIT License. (see LICENSE file in the root directory)
 [badge_license_link]: https://github.com/Mindsers/nativetable/blob/master/LICENSE
 [badge_coverage_report_image]: https://img.shields.io/coveralls/Mindsers/nativetable/master.svg
 [badge_coverage_report_link]: https://coveralls.io/github/Mindsers/nativetable
-[badge_gitter_image]: https://badges.gitter.im/nativetable/Lobby.svg
-[badge_gitter_link]: https://gitter.im/nativetable/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[badge_gitter_image]: https://badges.gitter.im/mindsers/nativetable.svg
+[badge_gitter_link]: https://gitter.im/mindsers/nativetable?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
