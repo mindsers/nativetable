@@ -1,7 +1,5 @@
 # Nativetable
 
-[![Join the chat at https://gitter.im/mindsers/nativetable](https://badges.gitter.im/mindsers/nativetable.svg)](https://gitter.im/mindsers/nativetable?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [![build status][badge_build_status_image]][badge_build_status_link]
 [![standardjs style][badge_js_code_style_image]][badge_js_code_style_link]
 [![coverage status][badge_coverage_report_image]][badge_coverage_report_link]
@@ -115,5 +113,5 @@ This project is under the MIT License. (see LICENSE file in the root directory)
 [badge_license_link]: https://github.com/Mindsers/nativetable/blob/master/LICENSE
 [badge_coverage_report_image]: https://img.shields.io/coveralls/Mindsers/nativetable/master.svg
 [badge_coverage_report_link]: https://coveralls.io/github/Mindsers/nativetable
-[badge_gitter_image]: https://badges.gitter.im/nativetable/Lobby.svg
-[badge_gitter_link]: https://gitter.im/nativetable/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[badge_gitter_image]: https://badges.gitter.im/mindsers/nativetable.svg
+[badge_gitter_link]: https://gitter.im/mindsers/nativetable?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
