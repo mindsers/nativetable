@@ -1,7 +1,6 @@
 // Type definitions for Nativetable v1.2.0
 // Project: https://github.com/Mindsers/nativetable
 // Definitions by: Nathanael CHERRIER <https://github.com/Mindsers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'nativetable' {
     export class Nativetable {
