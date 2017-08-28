@@ -23,7 +23,7 @@
     "table",
     "filter"
   ],
-  "author": "",
+  "author": "Nathanael CHERRIER <https://github.com/Mindsers>",
   "license": "MIT",
   "devDependencies": {
     "babel-plugin-istanbul": "^2.0.3",
