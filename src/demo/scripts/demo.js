@@ -1,3 +1,5 @@
+/// <reference path="../../nativetable/nativetable.d.ts"/>
+
 /* global Nativetable */
 
 'use strict'
