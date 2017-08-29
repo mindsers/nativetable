@@ -1,14 +1,16 @@
 {
   "name": "nativetable",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Create and use dynamics HTML tables with native JS",
   "repository": "https://github.com/Mindsers/nativetable",
   "main": "dist/nativetable.min.js",
+  "types": "dist/nativetable.d.ts",
   "scripts": {
     "build:js": "rollup -c",
     "build:clean": "rm -rf dist",
+    "build:types": "cp src/nativetable/nativetable.d.ts dist/nativetable.d.ts",
     "build:dev": "NODE_ENV=development npm run build:clean && npm run build:js -- --sourcemap -w",
-    "build:prod": "NODE_ENV=production npm run build:clean && npm run build:js",
+    "build:prod": "NODE_ENV=production npm run build:clean && npm run build:js && npm run build:types",
     "build": "npm run build:prod",
     "test:coveralls": "npm run test:coverage && nyc report --reporter=text-lcov | coveralls",
     "test:coverage": "NODE_ENV=test nyc mocha",
@@ -21,7 +23,7 @@
     "table",
     "filter"
   ],
-  "author": "",
+  "author": "Nathanael CHERRIER <https://github.com/Mindsers>",
   "license": "MIT",
   "devDependencies": {
     "babel-plugin-istanbul": "^2.0.3",

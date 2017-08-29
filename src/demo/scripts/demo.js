@@ -1,3 +1,4 @@
+/// <reference path="../../nativetable/nativetable.d.ts"/>
 /* global nativetable */
 
 const Nativetable = nativetable.Nativetable
