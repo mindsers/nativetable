@@ -44,7 +44,7 @@ Nativetable library is ready to be import on your project: `./dist/nativetable.m
 
 ## Usage
 
-If your are using tools for importing / bundling dependencies (umd format) for you, you can import Nativetable this way:
+- If your are using tools for importing / bundling dependencies (umd format) for you, you can import Nativetable this way:
 
 ```js
 const Nativetable = require('nativetable').Nativetable // classic
@@ -58,14 +58,14 @@ import { Nativetable } from 'nativetable' // es6 import
 const nt = new Nativetable('id')
 ```
 
-If you decide to import Nativetable with simple `<script/>` tag, all Nativetable classes is available in `nativetable` umd module. 
+- If you decide to import Nativetable with simple `<script/>` tag, all Nativetable classes is available in `nativetable` umd module. 
 
 Add a script tag on your page to call Nativatable.
 ```html
 <script src="nativetable.min.js"></script>
 ```
 
-In `*.js` file:
+And in `*.js|ts` file:
 ```js
 const Nativetable = nativetable.Nativetable // get Nativetable class from nativetable module
 
