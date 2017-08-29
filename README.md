@@ -16,13 +16,14 @@ Check the [demo](https://mindsers.github.io/nativetable/) page.
 
 ### Package manager installation
 
-Nativetable is available as a client side npm dependency. To install Nativetable with npm :
+Nativetable is available as a client side npm dependency. To install Nativetable with npm or yarn:
 
-```bash
+```sh
 npm install nativetable --save
+yarn add nativetable
 ```
 
-Nativetable library is ready to be import on your project : `./node_modules/nativetable/dist/nativetable.min.js`
+Nativetable library is ready to be import on your project: `./node_modules/nativetable/dist/nativetable.min.js`
 
 ### Manual installation
 You can build your own Nativetable with this project.
@@ -39,13 +40,38 @@ npm install
 npm run build
 ```
 
-Nativetable library is ready to be import on your project : `./dist/nativetable.min.js`
+Nativetable library is ready to be import on your project: `./dist/nativetable.min.js`
 
 ## Usage
+
+If your are using tools for importing / bundling dependencies (umd format) for you, you can import Nativetable this way:
+
+```js
+const Nativetable = require('nativetable').Nativetable // classic
+
+const { Nativetable } = require('nativetable') // es6 destructuring
+
+import { Nativetable } from 'nativetable' // es6 import
+
+// ...
+
+const nt = new Nativetable('id')
+```
+
+If you decide to import Nativetable with simple `<script/>` tag, all Nativetable classes is available in `nativetable` umd module. 
 
 Add a script tag on your page to call Nativatable.
 ```html
 <script src="nativetable.min.js"></script>
+```
+
+In `*.js` file:
+```js
+const Nativetable = nativetable.Nativetable // get Nativetable class from nativetable module
+
+// ...
+
+const nt = new Nativetable('id')
 ```
 
 ### Sample code
