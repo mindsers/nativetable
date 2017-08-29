@@ -23,7 +23,7 @@ npm install nativetable --save
 yarn add nativetable
 ```
 
-Nativetable library is ready to be import on your project: `./node_modules/nativetable/dist/nativetable.min.js`
+Nativetable library is ready. Build file is available at this path: `./node_modules/nativetable/dist/nativetable.min.js`
 
 ### Manual installation
 You can build your own Nativetable with this project.
@@ -55,7 +55,7 @@ import { Nativetable } from 'nativetable' // es6 import
 
 // ...
 
-const nt = new Nativetable('id')
+const nt = new Nativetable('tableid')
 ```
 
 - If you decide to import Nativetable with simple `<script/>` tag, all Nativetable classes is available in `nativetable` umd module. 
@@ -71,7 +71,7 @@ const Nativetable = nativetable.Nativetable // get Nativetable class from native
 
 // ...
 
-const nt = new Nativetable('id')
+const nt = new Nativetable('tableid')
 ```
 
 ### Sample code
