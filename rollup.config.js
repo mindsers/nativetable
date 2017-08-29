@@ -25,8 +25,8 @@ export default {
   targets: [
     {
       dest: pkg.main,
-      moduleName: 'Nativetable',
-      format: 'iife'
+      moduleName: 'nativetable',
+      format: 'umd'
     }
   ]
 }
