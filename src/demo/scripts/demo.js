@@ -1,4 +1,7 @@
-/* global Nativetable */
+/// <reference path="../../nativetable/nativetable.d.ts"/>
+/* global nativetable */
+
+const Nativetable = nativetable.Nativetable
 
 'use strict'
 
