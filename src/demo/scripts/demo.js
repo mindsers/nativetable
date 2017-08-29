@@ -1,4 +1,6 @@
-/* global Nativetable */
+/* global nativetable */
+
+const Nativetable = nativetable.Nativetable
 
 'use strict'
 
