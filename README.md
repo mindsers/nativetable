@@ -116,7 +116,7 @@ To contribute to this repo please follow the [contribution guide](https://github
 
 ## Support
 
-*Nativetable* is licensed under an MIT license, which means that it's completely free open source software. Unfortunately, *Nativetable* doesn't make it itself. Which will result in many late, beer-filled nights of development for me.
+*Nativetable* is licensed under an MIT license, which means that it's a completely free open source software. Unfortunately, *Nativetable* doesn't make it itself. Which will result in many late, beer-filled nights of development for me.
 
 If you're using *Nativetable* and want to support the development, you now have the chance! Go on my [Patreon page](https://www.patreon.com/mindsers) and become my joyful patron!!
 
