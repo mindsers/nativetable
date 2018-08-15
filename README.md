@@ -58,7 +58,7 @@ import { Nativetable } from 'nativetable' // es6 import
 const nt = new Nativetable('tableid')
 ```
 
-- If you decide to import Nativetable with simple `<script/>` tag, all Nativetable classes is available in `nativetable` umd module. 
+- If you decide to import Nativetable with simple `<script/>` tag, all Nativetable classes is available in `nativetable` umd module.
 
 Add a script tag on your page to call Nativatable.
 ```html
@@ -112,6 +112,18 @@ let ntable = new Nativetable('tableid', {
 ## Contribution
 
 To contribute to this repo please follow the [contribution guide](https://github.com/Mindsers/nativetable/blob/master/CONTRIBUTING.md).
+
+## Support
+
+*Nativetable* is licensed under an MIT license, which means that it's completely free open source software. Unfortunately, *Nativetable* doesn't make it itself. Which will result in many late, beer-filled nights of development for me.
+
+If you're using *Nativetable* and want to support the development, you now have the chance! Go on my [Patreon page](https://www.patreon.com/mindsers) and become my joyful patron!!
+
+[![Become a Patron!](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://www.patreon.com/bePatron?u=9715649)
+
+For help on how to support *Nativetable*, please refer to [The awesome people who support *Nativetable*](https://github.com/Mindsers/nativetable/blob/develop/SPONSORS.md).
+
+<!-- ### Premium sponsors -->
 
 ## License
 
