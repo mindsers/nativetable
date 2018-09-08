@@ -10,8 +10,8 @@ This file is an extension of the **Support** section in `README.md`. You can fin
 
 [Who are the people behind this project?](#who-are-the-people-behind-this-project)
 
-<!-- * [Sponsors](#sponsors)
-* [Supporters](#supporters) -->
+* [Sponsors](#sponsors)
+* [Supporters](#supporters)
 
 ## How can I support this project?
 
@@ -27,6 +27,12 @@ Be sure your effort to support this project will be greatly appreciated.
 
 No one support this project for now. Be the first! Read the **How can I support this project** section above.
 
-<!-- ### Sponsors
+### Sponsors
 
-### Supporters -->
+No one is in the **Sponsors** section for now. Be the first! Read the **How can I support this project** section above.
+
+### Supporters
+
+The best supporters are listed below:
+
+- Noël Cherrier ([Patreon](https://www.patreon.com/cherno/creators))
