@@ -1,7 +1,7 @@
 import { FilterApplicator } from './filter-applicator.class.js'
 import { Sorter } from './sorter.class.js'
 
-export class Nativetable {
+export class NativetableCore {
   /**
    * Data sources
    * Getter
