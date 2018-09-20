@@ -2,9 +2,9 @@ export class Sorter {
   /**
    * Sort the given source
    *
-   * @param {Object[]} sources - List of items to be sorted
-   * @param {string} column - The column name to be sorted
-   * @param {string} order - The sorting order. 'asc', 'desc' or 'none'
+   * @param {Object[]}  sources - List of items to be sorted
+   * @param {string}    column  - The column name to be sorted
+   * @param {string}    order   - The sorting order. 'asc', 'desc' or 'none'
    *
    * @return {Object[]}
    */

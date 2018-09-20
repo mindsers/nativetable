@@ -75,7 +75,7 @@ export class NativetableCore {
    * @param {Object}    [options.pagination.maxLength] - number max of elements per page
    * @param {boolean}   [options.sorting]              - a flag that activates sorting
    *
-   * @return {Nativetable} - an instance of Nativetable
+   * @return {NativetableCore} - an instance of Nativetable
    */
   constructor({ sources = [], filters = {}, columns = [], pagination: { maxLength = -1 } = {}, sorting = false } = {}) {
     this.options = {}
