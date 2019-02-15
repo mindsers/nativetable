@@ -1,4 +1,4 @@
-export default class Nativetable {
+export class Nativetable {
 
   /**
    * Data sources
