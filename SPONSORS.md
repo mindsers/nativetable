@@ -35,4 +35,4 @@ No one is in the **Sponsors** section for now. Be the first! Read the **How can 
 
 The best supporters are listed below:
 
-- Noël Cherrier ([Patreon](https://www.patreon.com/cherno/creators))
+- Aurore Jacquemont ([Patreon](https://www.patreon.com/manicoja/creators))
