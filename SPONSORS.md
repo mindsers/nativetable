@@ -33,4 +33,4 @@ No one is in the **Sponsors** section for now. Be the first! Read the **How can 
 
 The best supporters are listed below:
 
-- Aurore Jacquemont ([Patreon](https://www.patreon.com/user/creators?u=15255739))
+- Aurore Jacquemont
