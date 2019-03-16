@@ -25,8 +25,6 @@ Be sure your effort to support this project will be greatly appreciated.
 
 ## Who are the people behind this project?
 
-No one support this project for now. Be the first! Read the **How can I support this project** section above.
-
 ### Sponsors
 
 No one is in the **Sponsors** section for now. Be the first! Read the **How can I support this project** section above.
@@ -35,4 +33,4 @@ No one is in the **Sponsors** section for now. Be the first! Read the **How can 
 
 The best supporters are listed below:
 
-- Aurore Jacquemont ([Patreon](https://www.patreon.com/user/creators?u=15255739))
+- Aurore Jacquemont
