@@ -25,8 +25,6 @@ Be sure your effort to support this project will be greatly appreciated.
 
 ## Who are the people behind this project?
 
-No one support this project for now. Be the first! Read the **How can I support this project** section above.
-
 ### Sponsors
 
 No one is in the **Sponsors** section for now. Be the first! Read the **How can I support this project** section above.
