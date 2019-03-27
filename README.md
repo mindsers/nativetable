@@ -6,6 +6,7 @@
 [![MIT license][badge_license_image]][badge_license_link]
 [![Patreon](https://img.shields.io/badge/support-patreon-F96854.svg?logo=patreon&style=flat-square)](https://www.patreon.com/bePatron?u=9715649)
 [![Discord](https://img.shields.io/badge/chat-discord-7289DA.svg?logo=discord&logoColor=7289DA&style=flat-square)](https://discord.gg/sypJDdc)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 Nativetable is a simple native es6 module to create and work with dynamics HTML tables.
 
@@ -113,6 +114,8 @@ let ntable = new Nativetable('tableid', {
 ## Contribution
 
 To contribute to this repo please follow the [contribution guide](https://github.com/Mindsers/nativetable/blob/master/CONTRIBUTING.md).
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. The contributor list is stored in the [CONTRIBUTORS.md](https://github.com/Mindsers/nativetable/blob/master/CONTRIBUTORS.md) file.
 
 ## Support
 
