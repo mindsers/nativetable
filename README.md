@@ -1,5 +1,5 @@
 # Nativetable
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+
 
 [![build status][badge_build_status_image]][badge_build_status_link]
 [![standardjs style][badge_js_code_style_image]][badge_js_code_style_link]
@@ -7,6 +7,7 @@
 [![MIT license][badge_license_image]][badge_license_link]
 [![Patreon](https://img.shields.io/badge/support-patreon-F96854.svg?logo=patreon&style=flat-square)](https://www.patreon.com/bePatron?u=9715649)
 [![Discord](https://img.shields.io/badge/chat-discord-7289DA.svg?logo=discord&logoColor=7289DA&style=flat-square)](https://discord.gg/sypJDdc)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 Nativetable is a simple native es6 module to create and work with dynamics HTML tables.
 
@@ -115,6 +116,8 @@ let ntable = new Nativetable('tableid', {
 
 To contribute to this repo please follow the [contribution guide](https://github.com/Mindsers/nativetable/blob/master/CONTRIBUTING.md).
 
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. The contributor list is stored in the [CONTRIBUTORS.md](https://github.com/Mindsers/nativetable/blob/master/CONTRIBUTORS.md) file.
+
 ## Support
 
 *Nativetable* is licensed under an MIT license, which means that it's a completely free open source software. Unfortunately, *Nativetable* doesn't make it itself. Which will result in many late, beer-filled nights of development for me.
@@ -164,15 +167,3 @@ This project is under the MIT License. (see LICENSE file in the root directory)
 [badge_license_link]: https://github.com/Mindsers/nativetable/blob/master/LICENSE
 [badge_coverage_report_image]: https://img.shields.io/coveralls/Mindsers/nativetable/master.svg?style=flat-square
 [badge_coverage_report_link]: https://coveralls.io/github/Mindsers/nativetable
-
-## Contributors
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-<table><tr><td align="center"><a href="https://nathanaelcherrier.com"><img src="https://avatars0.githubusercontent.com/u/3090112?v=4" width="100px;" alt="Nathanael CHERRIER"/><br /><sub><b>Nathanael CHERRIER</b></sub></a><br /><a href="https://github.com/mindsers/nativetable/commits?author=mindsers" title="Code">💻</a> <a href="https://github.com/mindsers/nativetable/commits?author=mindsers" title="Documentation">📖</a> <a href="#maintenance-mindsers" title="Maintenance">🚧</a></td></tr></table>
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
