@@ -1,6 +1,5 @@
 # Nativetable
 
-
 [![build status][badge_build_status_image]][badge_build_status_link]
 [![standardjs style][badge_js_code_style_image]][badge_js_code_style_link]
 [![coverage status][badge_coverage_report_image]][badge_coverage_report_link]
