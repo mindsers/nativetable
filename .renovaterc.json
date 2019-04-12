@@ -2,5 +2,6 @@
   "extends": [
     "config:base"
   ],
-  "assignees": ["mindsers"]
+  "assignees": ["mindsers"],
+  "labels": ["state: need review", "type: enhancement"]
 }
