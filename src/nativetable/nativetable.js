@@ -1,5 +1,4 @@
 export class Nativetable {
-
   /**
    * Data sources
    * Getter
