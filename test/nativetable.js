@@ -58,6 +58,10 @@ describe('Nativetable', () => {
       chai.spy.on(Nativetable.prototype, 'draw')
     })
 
+    after(() => {
+      chai.spy.restore()
+    })
+
     it('should call draw method on init', () => {
       nt = new Nativetable('id')
       nt.draw.should.have.been.called()
@@ -238,6 +242,10 @@ describe('Nativetable', () => {
           }
         }
       }
+    })
+
+    afterEach(() => {
+      chai.spy.restore()
     })
 
     it('should call draw', () => {
