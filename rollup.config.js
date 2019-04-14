@@ -22,7 +22,7 @@ export default {
     }),
     uglify()
   ],
-  targets: [
+  output: [
     {
       file: pkg.main,
       name: 'nativetable',
