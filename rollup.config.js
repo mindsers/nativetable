@@ -11,9 +11,11 @@ export default {
     babel({
       presets: [
         [
-          'es2015',
+          '@babel/preset-env',
           {
-            modules: false
+            targets: {
+              esmodules: false
+            }
           }
         ]
       ],
