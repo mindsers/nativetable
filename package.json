@@ -14,7 +14,7 @@
     "build": "npm run build:prod",
     "test:coveralls": "npm run test:coverage && nyc report --reporter=text-lcov | coveralls",
     "test:coverage": "NODE_ENV=test nyc mocha",
-    "test:unit": "mocha -r babel-core/register",
+    "test:unit": "mocha -r @babel/register",
     "test:lint": "eslint ./src",
     "test:clean": "rm -rf coverage",
     "test": "npm run test:clean && npm run test:coveralls"
@@ -28,8 +28,8 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
     "babel-plugin-istanbul": "5.1.1",
-    "babel-register": "6.26.0",
     "chai": "4.2.0",
     "chai-spies": "1.0.0",
     "coveralls": "3.0.3",
