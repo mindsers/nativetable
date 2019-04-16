@@ -1,12 +1,12 @@
 language: node_js
 node_js:
-  - '6'
+  - '8'
 install:
-  - npm install
+  - yarn --pure-lock
 script:
-  - npm run test:lint
-  - npm test
-  - npm run build
+  - yarn test:lint
+  - yarn test
+  - yarn build
 deploy:
   provider: npm
   email: dev@nathanaelcherrier.com
