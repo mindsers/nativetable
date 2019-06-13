@@ -5,7 +5,7 @@
 [![coverage status][badge_coverage_report_image]][badge_coverage_report_link]
 [![MIT license][badge_license_image]][badge_license_link]
 [![Patreon](https://img.shields.io/badge/support-patreon-F96854.svg?logo=patreon&style=flat-square)](https://www.patreon.com/bePatron?u=9715649)
-[![Discord](https://img.shields.io/badge/chat-discord-7289DA.svg?logo=discord&logoColor=7289DA&style=flat-square)](https://discord.gg/sypJDdc)
+[![Discourse](https://img.shields.io/discourse/https/community.nathanaelcherrier.com/posts.svg?color=00aeef&logo=discourse&logoColor=00aeef&style=flat-square)](https://community.nathanaelcherrier.com)
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 Nativetable is a simple native es6 module to create and work with dynamics HTML tables.
