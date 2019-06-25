@@ -33,7 +33,7 @@
     "chai": "4.2.0",
     "chai-spies": "1.0.0",
     "coveralls": "3.0.4",
-    "eslint": "6.0.0",
+    "eslint": "6.0.1",
     "eslint-config-standard": "12.0.0",
     "eslint-plugin-import": "2.17.3",
     "eslint-plugin-node": "9.1.0",
