@@ -74,9 +74,9 @@ export class Nativetable {
      * @param {Object[]} items - array of boolean value
      * @returns {boolean}
      */
-    let $and = (items) => {
+    const $and = (items) => {
       let condition = true
-      for (let item of items) {
+      for (const item of items) {
         condition = condition && item
       }
 
@@ -90,9 +90,9 @@ export class Nativetable {
      * @param {Object[]} items - array of boolean value
      * @returns {boolean}
      */
-    let $or = (items) => {
+    const $or = (items) => {
       let condition = false
-      for (let item of items) {
+      for (const item of items) {
         condition = condition || item
       }
 
@@ -108,10 +108,10 @@ export class Nativetable {
      *
      * @return {boolean}
      */
-    let $resultForColumn = (item, condition) => {
+    const $resultForColumn = (item, condition) => {
       if (typeof condition === 'function') { // custom condition
-        let closure = condition
-        let result = closure(item)
+        const closure = condition
+        const result = closure(item)
         if (typeof result === 'boolean') {
           return result
         }
@@ -119,8 +119,8 @@ export class Nativetable {
         return false // bad return type of closure
       }
 
-      let column = []
-      for (let value of condition) { // normal condition
+      const column = []
+      for (const value of condition) { // normal condition
         column.push(item === value)
       }
 
@@ -128,13 +128,13 @@ export class Nativetable {
     }
 
     this.data.filtered = this.sources.filter((item) => {
-      let result = []
+      const result = []
       if ('$and' in filters) {
-        let keys = Object.keys(filters.$and)
-        let conditions = filters['$and']
-        let resultAND = []
+        const keys = Object.keys(filters.$and)
+        const conditions = filters.$and
+        const resultAND = []
 
-        for (let key of keys) {
+        for (const key of keys) {
           resultAND.push($resultForColumn(item[key], conditions[key]))
         }
 
@@ -142,11 +142,11 @@ export class Nativetable {
       }
 
       if ('$or' in filters) {
-        let keys = Object.keys(filters.$or)
-        let conditions = filters['$or']
-        let resultOR = []
+        const keys = Object.keys(filters.$or)
+        const conditions = filters.$or
+        const resultOR = []
 
-        for (let key of keys) {
+        for (const key of keys) {
           resultOR.push($resultForColumn(item[key], conditions[key]))
         }
 
@@ -189,7 +189,7 @@ export class Nativetable {
       return this.data.sorted
     }
 
-    let tmpArray = sources.map((e, i) => { // create temporary array that is easier to sort
+    const tmpArray = sources.map((e, i) => { // create temporary array that is easier to sort
       let el = e[column]
 
       if (typeof e[column] === 'string') {
@@ -252,14 +252,14 @@ export class Nativetable {
     }
 
     if (maxLength === -1) { // no pagination
-      this.data.paginated = [ sources ]
+      this.data.paginated = [sources]
       return this.data.paginated
     }
 
-    let pages = []
+    const pages = []
     let page = []
 
-    for (let row of sources) {
+    for (const row of sources) {
       if (page.length >= maxLength) {
         pages.push(page)
         page = []
@@ -280,16 +280,16 @@ export class Nativetable {
    * @return {Object[]} - column
    */
   get columns() {
-    let headers = this.options.columns || []
+    const headers = this.options.columns || []
 
     if (headers.length > 0) {
       return headers
     }
 
     this.filtered.forEach((el) => {
-      let tmpHeaders = Object.keys(el)
+      const tmpHeaders = Object.keys(el)
 
-      for (let col of tmpHeaders) {
+      for (const col of tmpHeaders) {
         if (headers.indexOf(col) !== -1) {
           continue
         }
@@ -319,7 +319,7 @@ export class Nativetable {
       return
     }
 
-    for (let columns of value) {
+    for (const columns of value) {
       let { key, title } = columns
 
       if (typeof columns === 'string') {
@@ -491,13 +491,13 @@ export class Nativetable {
   buildTableHeader(cols) {
     const columns = cols
 
-    let theadTag = document.createElement('thead')
-    let trTag = document.createElement('tr')
+    const theadTag = document.createElement('thead')
+    const trTag = document.createElement('tr')
 
     theadTag.classList.add('nt-head')
 
-    for (let { key, title } of columns) {
-      let tdTag = document.createElement('td')
+    for (const { key, title } of columns) {
+      const tdTag = document.createElement('td')
       tdTag.textContent = title
       tdTag.dataset.ntColumnName = key
 
@@ -507,9 +507,9 @@ export class Nativetable {
           desc: '<span class="nt-icon nt-icon-sort-desc"></span>',
           none: '<span class="nt-icon nt-icon-sort-none"></span>'
         }
-        let order = this.options.sorting.column === key ? this.options.sorting.order : 'none'
-        let glyph = glyphList[order]
-        let aTag = document.createElement('a')
+        const order = this.options.sorting.column === key ? this.options.sorting.order : 'none'
+        const glyph = glyphList[order]
+        const aTag = document.createElement('a')
 
         aTag.href = '#'
         aTag.addEventListener('click', this.onSortingClick.bind(this))
@@ -538,17 +538,17 @@ export class Nativetable {
     const sources = rows
     const columns = cols
 
-    let tbodyTag = document.createElement('tbody')
+    const tbodyTag = document.createElement('tbody')
     tbodyTag.classList.add('nt-body')
 
-    for (let row of sources) {
-      let trTag = document.createElement('tr')
+    for (const row of sources) {
+      const trTag = document.createElement('tr')
 
       trTag.classList.add('nt-row')
       trTag.dataset.ntObject = this.objectSignature(row)
 
-      for (let { key } of columns) {
-        let tdTag = document.createElement('td')
+      for (const { key } of columns) {
+        const tdTag = document.createElement('td')
         tdTag.textContent = typeof row[key] === 'undefined' ? '' : row[key]
         trTag.appendChild(tdTag)
       }
@@ -570,10 +570,10 @@ export class Nativetable {
   buildPagination(pages, current = 0) {
     const sources = pages
 
-    let ulTag = document.createElement('ul')
+    const ulTag = document.createElement('ul')
     for (let index in sources) {
-      let liTag = document.createElement('li')
-      let aTag = document.createElement('a')
+      const liTag = document.createElement('li')
+      const aTag = document.createElement('a')
 
       index = +index // casting to number
 
@@ -604,7 +604,7 @@ export class Nativetable {
   onPaginationClick(event) {
     event.preventDefault()
 
-    let item = event.target.parentNode
+    const item = event.target.parentNode
     this.options.pagination.currentPage = parseInt(item.dataset.ntPaginationIndex)
 
     this.draw()
@@ -619,7 +619,7 @@ export class Nativetable {
   onSortingClick(event) {
     event.preventDefault()
 
-    let item = event.target.parentNode
+    const item = event.target.parentNode
 
     if (this.options.sorting.column !== item.dataset.ntColumnName) {
       this.options.sorting.column = item.dataset.ntColumnName
