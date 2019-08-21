@@ -5,7 +5,7 @@
 
 const Nativetable = nativetable.Nativetable
 
-let data = [
+const data = [
   {
     id: 12,
     name: 'bob',
@@ -53,15 +53,15 @@ let data = [
   }
 ]
 
-let main = () => {
-  let ntPagination = new Nativetable('test-pagination', {
+const main = () => {
+  const ntPagination = new Nativetable('test-pagination', {
     sources: data,
     pagination: {
       maxLength: 5
     }
   })
 
-  let ntFilter = new Nativetable('test-filtering', {
+  const ntFilter = new Nativetable('test-filtering', {
     sources: data,
     pagination: {
       maxLength: 5
@@ -80,7 +80,7 @@ let main = () => {
     }
   })
 
-  let ntSorting = new Nativetable('test-sorting', {
+  const ntSorting = new Nativetable('test-sorting', {
     sources: data,
     sorting: true
   })
@@ -90,10 +90,10 @@ let main = () => {
   console.log(document.nt)
 }
 
-if (document.readyState === `interactive` || document.readyState === `complete`) {
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
   main()
 } else {
-  let onDOMContentLoaded = () => {
+  const onDOMContentLoaded = () => {
     main()
     document.removeEventListener('DOMContentLoaded', onDOMContentLoaded)
   }
