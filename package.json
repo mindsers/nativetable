@@ -44,7 +44,7 @@
     "nyc": "14.1.1",
     "rollup": "1.20.3",
     "rollup-plugin-babel": "4.3.3",
-    "rollup-plugin-uglify": "6.0.2"
+    "rollup-plugin-uglify": "6.0.3"
   },
   "dependencies": {},
   "nyc": {
