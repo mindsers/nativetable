@@ -26,9 +26,9 @@
   "author": "Nathanael CHERRIER <https://github.com/Mindsers>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.6.4",
-    "@babel/preset-env": "7.6.3",
-    "@babel/register": "7.6.2",
+    "@babel/core": "7.7.0",
+    "@babel/preset-env": "7.7.0",
+    "@babel/register": "7.7.0",
     "babel-plugin-istanbul": "5.2.0",
     "chai": "4.2.0",
     "chai-spies": "1.0.0",
